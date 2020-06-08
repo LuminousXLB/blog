@@ -36,3 +36,20 @@ $ hexo deploy
 ```
 
 More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
+
+When $a \ne 0$, there are two solutions to $ax^2 + bx + c = 0$ and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+
+When \\(a \ne 0\\), there are two solutions to \\(ax^2 + bx + c = 0\\) and they are
+\\[x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\\]
+
+``` c++
+#include <iostream>
+​
+using namespace std;
+​
+int main() {
+    cout << "hello, world" << endl;
+}
+```
+

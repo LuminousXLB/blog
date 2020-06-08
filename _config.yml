@@ -110,15 +110,6 @@ theme_config:
     serverURLs: 'https://qvuggnqa.lc-cn-n1-shared.com'
     emojiCDN:                         # emoji CDN
     enableQQ: true
-  stylesheets:
-  - /blog/css/style.css
-  - https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css
-  - https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css
-  scripts:
-  - /blog/js/script.js
-  - https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js
-  - https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.3/build/highlight.min.js
-  - https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
