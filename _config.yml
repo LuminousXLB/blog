@@ -3,19 +3,19 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: TaraBlog
 subtitle: ''
 description: ''
 keywords:
-author: John Doe
-language: en
-timezone: ''
+author: Shen Jiamin
+language: zh
+timezone: 'Asia/Shanghai'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://yoursite.com
 root: /
-permalink: :year/:month/:day/:title/
+permalink: :year-:month-:day/:title/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -93,7 +93,23 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: blank
+theme_config:
+  motto: ''
+  valine:
+    enable: true                      # 如果使用valine，请设置改之为true
+    appid: 'QVuGgnqavTEoyFmGB3ecG7N7-gzGzoHsz'
+    appkey: 'PqMOedzOXVgiWNfW5IwJfP4j'
+    notify: false                     # mail notifier , https://github.com/xCss/Valine/wiki
+    verify: false                     # Verification code
+    placeholder: Just go go           # comment box placeholder
+    avatar: mm                        # gravatar style
+    guest_info: nick,mail,link        # custom comment header
+    pageSize: 10                      # pagination size
+    recordIP: false                   # 是否记录评论者IP
+    serverURLs: 'https://qvuggnqa.lc-cn-n1-shared.com'
+    emojiCDN:                         # emoji CDN
+    enableQQ: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
