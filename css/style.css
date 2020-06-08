@@ -1568,11 +1568,11 @@ p.note::before {
 }
 code {
   background-color: #f8f8f8;
-  font-family: Consolas, "Panic Sans", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Menlo, "Microsoft Yahei" !important;
+  font-family: "Fira Code", Consolas, "Panic Sans", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Menlo, "Microsoft Yahei" !important;
 }
 .gutter {
   padding-right: 0.5em;
-  font-family: Consolas, "Panic Sans", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Menlo, "Microsoft Yahei" !important;
+  font-family: "Fira Code", "Panic Sans", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Menlo, "Microsoft Yahei" !important;
 }
 /* for block of numbers */
 .hljs-ln-numbers {

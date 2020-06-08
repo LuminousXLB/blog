@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   
     <link rel="icon" href="/blog/img/favicon.ico">
-
+  
   
       <meta name="author" content="Shen Jiamin">
   
@@ -20,7 +20,7 @@
   
   
   <title>归档: 2020/6 | TaraBlog</title>
-  
+
   
 
   
@@ -30,24 +30,22 @@
 
   
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;display=swap"  media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&amp;family=Noto+Serif+SC:wght@400;500;700&amp;display=swap"  media="print" onload="this.media='all'">
   
 
   
     
-      <link rel="stylesheet" href="/css/style.css">
+      <link rel="stylesheet" href="/blog/css/style.css">
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css">
     
-      <link rel="stylesheet" href="/blog/css/style.css">
-    
-    
+  
 
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.0.3/styles/github.min.css">
-    
+  
 
 <meta name="generator" content="Hexo 4.2.1"></head>
 </html>
@@ -75,7 +73,7 @@
     <div class="title animated fadeInDown">
         <div class="layui-container"> 
         
-            <div class="nav-logo"> <a href="https://github.com/a2396837" target="_blank" rel="noopener" title="一时开源一时爽，一直开源一直爽"><i class="fab fa-github" style="font-size: 36px;"></i></a> </div>
+            <div class="nav-logo"> <a href="https://www.taraxacum.ink" title="一时开源一时爽，一直开源一直爽"><i class="fab fa-github" style="font-size: 36px;"></i></a> </div>
          
         <div class="nav-list">
             <button> <span class=""></span><span style="display: block;"></span><span class=""></span> </button>
@@ -206,52 +204,58 @@
         
     </div>  
   </div>
+<script src="https://www.layuicdn.com/layui-v2.5.6/layui.js"></script>
 
 
-<script src="https://www.layuicdn.com/layui-v2.5.6/layui.js"></script> 
-
-
-    
-      <script src="/js/script.js"></script>
-    
-      <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
-    
-      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.3/build/highlight.min.js"></script>
-    
-      <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
-    
-      <script src="/blog/js/script.js"></script>
-    
   
+    <script src="/blog/js/script.js"></script>
   
+    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
   
-    <script>
-      $("img").not('.page img').not('.nav-logo img').each(function () {
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.3/build/highlight.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+  
+
+
+
+  <script>
+    $("img").not('.page img').not('.nav-logo img').each(function () {
       var element = document.createElement("a");
       $(element).attr("data-fancybox", "gallery");
       $(element).attr("href", $(this).attr("src"));
       $(this).wrap(element);
-      });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
-    
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
   
-    <script>
-      var btntop = $('#gotop');
-        btntop.on('click', function (e) {
-          e.preventDefault();
-          $('html, body').animate({ scrollTop: 0 }, '300');
-        });
-      </script>
-      
-    <script>
-      $(document).ready(function() {
-          $('code.hljs').each(function(i, block) {
-              hljs.lineNumbersBlock(block);
-          });
-      });
-    </script>
 
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
+
+
+<script>
+  var btntop = $('#gotop');
+  btntop.on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, '300');
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('pre code').each(function (i, block) {
+      hljs.lineNumbersBlock(block);
+    });
+  });
+</script>
 
 
 
