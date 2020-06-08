@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <link rel="icon" href="/blog/img/favicon.ico">
+  
+  
+      <meta name="author" content="Shen Jiamin">
+  
+  
+  
+  
+  
+    <link rel="alternate" href="/blog/atom.xml " title="TaraBlog" type="application/atom+xml">
+  
+  
+  <title>算法与复杂性 | TaraBlog</title>
+
+  
+
+  
+
+  
+
+
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&amp;family=Noto+Serif+SC:wght@400;500;700&amp;display=swap"  media="print" onload="this.media='all'">
+  
+
+  
+    
+      <link rel="stylesheet" href="/blog/css/style.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css">
+    
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.0.3/styles/github.min.css">
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+</html>
+
+    
+
+
+<header class="header">
+    <div class="title animated fadeInDown">
+    <div class="title">
+        <a href="/blog/" class="logo">TaraBlog</a>
+    </div>
+    </div> 
+    <div class="navbar animated fadeInDown">
+        <div class="motto">
+            <h2></h2>
+        </div>
+
+</header>
+
+
+
+    
+<div class="nav index" style="height: 60px;">
+    <div class="title animated fadeInDown">
+        <div class="layui-container"> 
+        
+            <div class="nav-logo"> <a href="https://www.taraxacum.ink" title="一时开源一时爽，一直开源一直爽"><i class="fab fa-github" style="font-size: 36px;"></i></a> </div>
+         
+        <div class="nav-list">
+            <button> <span class=""></span><span style="display: block;"></span><span class=""></span> </button>
+            <ul class="layui-nav" lay-filter="">
+            
+            <li class="layui-nav-item">
+                <a href="/blog/">
+                    <i class="fab fa-fort-awesome" aria-hidden="true"></i>
+                    首页
+                </a>
+            </li>
+            
+            <li class="layui-nav-item">
+                <a href="/blog/archives/">
+                    <i class="far fa-calendar-check" aria-hidden="true"></i>
+                    归档
+                </a>
+            </li>
+            
+            <li class="layui-nav-item">
+                <a href="/blog/tags/">
+                    <i class="fas fa-hashtag" aria-hidden="true"></i>
+                    标签
+                </a>
+            </li>
+            
+            <li class="layui-nav-item">
+                <a href="/blog/about/">
+                    <i class="fab fa-grav" aria-hidden="true"></i>
+                    关于
+                </a>
+            </li>
+            
+            <li class="layui-nav-item">
+                <a href="/blog/guestbook/">
+                    <i class="fab fa-telegram" aria-hidden="true"></i>
+                    留言
+                </a>
+            </li>
+            
+            <li class="layui-nav-item">
+                <a href="/blog/link/">
+                    <i class="fab fa-weixin" aria-hidden="true"></i>
+                    友链
+                </a>
+            </li>
+            
+            <li class="layui-nav-item">
+            
+                <div id="dark" onclick="switchDarkMode()"></div>   
+                <script>
+                    if(localStorage.getItem('dark') === '1') {
+                        document.body.classList.add('dark');
+                    }
+                    document.getElementById('dark').innerHTML = document.querySelector("body").classList.contains("dark")?"🌙":"🌞";
+                </script>
+              
+            </li>  
+            <span class="layui-nav-bar" style="left: 342px; top: 78px; width: 0px; opacity: 0;"></span>
+            </ul>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+<article id="post">
+  <div class="post-title"><h1>算法与复杂性</h1></div>
+  <div class="post-date">
+        <span title="发表于 2020-06-08"><i class="far fa-calendar-alt" aria-hidden="true"></i> 2020-06-08</span>  |  
+        <span title="更新于 2020-06-08"><i class="fas fa-history" aria-hidden="true"></i> 2020-06-08</span>
+        
+  </div>
+  <br>
+  <div class="content">
+      <div><h2 id="第1章-引论"><a href="#第1章-引论" class="headerlink" title="第1章　引论"></a>第1章　引论</h2><h3 id="算法描述－－伪代码"><a href="#算法描述－－伪代码" class="headerlink" title="算法描述－－伪代码"></a>算法描述－－伪代码</h3><h2 id="第2章-数学归纳法"><a href="#第2章-数学归纳法" class="headerlink" title="第2章　数学归纳法"></a>第2章　数学归纳法</h2><h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><h3 id="简单变形"><a href="#简单变形" class="headerlink" title="简单变形"></a>简单变形</h3><h4 id="强归纳法"><a href="#强归纳法" class="headerlink" title="强归纳法"></a>强归纳法</h4><h4 id="分奇偶归纳"><a href="#分奇偶归纳" class="headerlink" title="分奇偶归纳"></a>分奇偶归纳</h4><h4 id="指数归纳"><a href="#指数归纳" class="headerlink" title="指数归纳"></a>指数归纳</h4><h2 id="第3章-算法分析"><a href="#第3章-算法分析" class="headerlink" title="第3章　算法分析"></a>第3章　算法分析</h2><h3 id="时间复杂性"><a href="#时间复杂性" class="headerlink" title="时间复杂性"></a>时间复杂性</h3><h4 id="渐进时间复杂性"><a href="#渐进时间复杂性" class="headerlink" title="渐进时间复杂性"></a>渐进时间复杂性</h4><ul>
+<li>符号$O$</li>
+<li>符号$\Omega$</li>
+<li>符号$\Theta$</li>
+<li>符号$o$</li>
+</ul>
+<h3 id="空间复杂性"><a href="#空间复杂性" class="headerlink" title="空间复杂性"></a>空间复杂性</h3><h3 id="最优算法"><a href="#最优算法" class="headerlink" title="最优算法"></a>最优算法</h3><h3 id="如何估计算法运行时间"><a href="#如何估计算法运行时间" class="headerlink" title="如何估计算法运行时间"></a>如何估计算法运行时间</h3><ul>
+<li>计算迭代次数</li>
+<li>计算基本运算的频度</li>
+<li>使用递推关系</li>
+</ul>
+<h3 id="输入规模"><a href="#输入规模" class="headerlink" title="输入规模"></a>输入规模</h3><h3 id="数学性质"><a href="#数学性质" class="headerlink" title="数学性质"></a>数学性质</h3><h4 id="对数"><a href="#对数" class="headerlink" title="对数"></a>对数</h4><p>$$ \log _{b} x y=\log _{b} x+\log _{b} y  $$</p>
+<p>$$ \log _{b}\left(c^{y}\right)=y \log _{b} c  $$</p>
+<p>$$ \log _{a} b=\frac{1}{\log _{b} a} \quad \log _{b} x=\frac{\log _{a} x}{\log _{a} b}  $$</p>
+<p>$$ a^{\log _{a} x}=x \quad x^{\log _{b} y}=y^{\log _{b} x}  $$</p>
+<p>$$ \sum_{i=1}^{n}\lfloor\log i\rfloor=(n+1)\lfloor\log n\rfloor-2^{\lfloor\log n\rfloor+1}+2=\Theta(n \log n)  $$</p>
+<p>$$ e=\lim _{n \rightarrow \infty}\left(1+\frac{1}{n}\right)^{n}=1+\frac{1}{1 !}+\frac{1}{2 !}+\frac{1}{3 !}+\cdots $$</p>
+<h4 id="顶函数和底函数"><a href="#顶函数和底函数" class="headerlink" title="顶函数和底函数"></a>顶函数和底函数</h4><h4 id="阶乘"><a href="#阶乘" class="headerlink" title="阶乘"></a>阶乘</h4><p>$$ 0! = 1 $$<br>$$ n! = n(n-1)! \quad (n \geq 1) $$</p>
+<p>Stirling公式<br>$$ n !=\sqrt{2 \pi n}\left(\frac{n}{e}\right)^{n}(1+O(1 / n)) \approx \sqrt{2 \pi n}\left(\frac{n}{e}\right)^{n} $$<br>$$ \log (n !)=\Theta(n \log n) $$</p>
+<h4 id="二项式系数"><a href="#二项式系数" class="headerlink" title="二项式系数"></a>二项式系数</h4><p>$$ \binom{n}{k} = C_{n}^{k}=\frac{n !}{k !(n-k) !}  $$<br>$$ \binom{n}{k}=\binom{n}{n-k}  $$<br>$$ \binom{n}{k}=\binom{n-1}{k} + \binom{n-1}{k-1}  $$<br>$$ (1+x)^{n}=\sum_{j=0}^{n}{\binom{n}{j} x^{j}} $$</p>
+<p>Pascal 三角形</p>
+<h4 id="鸽巢原理"><a href="#鸽巢原理" class="headerlink" title="鸽巢原理"></a>鸽巢原理</h4><h4 id="和式"><a href="#和式" class="headerlink" title="和式"></a>和式</h4><h4 id="求和的积分近似"><a href="#求和的积分近似" class="headerlink" title="求和的积分近似"></a>求和的积分近似</h4><p>$f(x)$是单调递减的连续函数，则</p>
+<p>$$\int_{m}^{n+1} f(x) \mathrm{d} x \leq \sum_{j=m}^{n} f(j) \leq \int_{m-1}^{n} f(x) \mathrm{d} x$$</p>
+<p>$f(x)$是单调递增的连续函数，则</p>
+<p>$$\int_{m-1}^{n} f(x) \mathrm{d} x \leq \sum_{j=m}^{n} f(j) \leq \int_{m}^{n+1} f(x) \mathrm{d} x$$</p>
+<h3 id="递推关系"><a href="#递推关系" class="headerlink" title="递推关系"></a>递推关系</h3><h2 id="第5章-基于归纳的算法设计"><a href="#第5章-基于归纳的算法设计" class="headerlink" title="第5章　基于归纳的算法设计"></a>第5章　基于归纳的算法设计</h2><h3 id="算法设计的基本思想"><a href="#算法设计的基本思想" class="headerlink" title="算法设计的基本思想"></a>算法设计的基本思想</h3><h3 id="分治算法"><a href="#分治算法" class="headerlink" title="分治算法"></a>分治算法</h3><h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><h2 id="第6章-序列和集合的算法"><a href="#第6章-序列和集合的算法" class="headerlink" title="第6章　序列和集合的算法"></a>第6章　序列和集合的算法</h2><h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><h4 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h4><h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h4 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h4><h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4><h4 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h4><h4 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h4><h4 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h4><h4 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h4><h4 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h4><h4 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h4><h3 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h3><h3 id="秩"><a href="#秩" class="headerlink" title="秩"></a>秩</h3><h3 id="数据压缩"><a href="#数据压缩" class="headerlink" title="数据压缩"></a>数据压缩</h3><h3 id="串匹配"><a href="#串匹配" class="headerlink" title="串匹配"></a>串匹配</h3><h4 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h4><h4 id="序列比较"><a href="#序列比较" class="headerlink" title="序列比较"></a>序列比较</h4><h3 id="查找众数"><a href="#查找众数" class="headerlink" title="查找众数"></a>查找众数</h3><h3 id="最长递增序列"><a href="#最长递增序列" class="headerlink" title="最长递增序列"></a>最长递增序列</h3><h3 id="查找集合中最大的两个元素"><a href="#查找集合中最大的两个元素" class="headerlink" title="查找集合中最大的两个元素"></a>查找集合中最大的两个元素</h3><h3 id="计算多重集合的模"><a href="#计算多重集合的模" class="headerlink" title="计算多重集合的模"></a>计算多重集合的模</h3><h2 id="第7章-图算法"><a href="#第7章-图算法" class="headerlink" title="第7章　图算法"></a>第7章　图算法</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h3 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h3><h4 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h4><h4 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h4><h3 id="单源最短路径"><a href="#单源最短路径" class="headerlink" title="单源最短路径"></a>单源最短路径</h3><h3 id="最小代价生成树"><a href="#最小代价生成树" class="headerlink" title="最小代价生成树"></a>最小代价生成树</h3><h3 id="全部最短路径"><a href="#全部最短路径" class="headerlink" title="全部最短路径"></a>全部最短路径</h3><h3 id="传递闭包"><a href="#传递闭包" class="headerlink" title="传递闭包"></a>传递闭包</h3><h3 id="双连通分支"><a href="#双连通分支" class="headerlink" title="双连通分支"></a>双连通分支</h3><h3 id="强连通分支"><a href="#强连通分支" class="headerlink" title="强连通分支"></a>强连通分支</h3><h3 id="图分解"><a href="#图分解" class="headerlink" title="图分解"></a>图分解</h3><h3 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h3><h3 id="哈密尔顿回路"><a href="#哈密尔顿回路" class="headerlink" title="哈密尔顿回路"></a>哈密尔顿回路</h3><h2 id="第8章-几何算法"><a href="#第8章-几何算法" class="headerlink" title="第8章　几何算法"></a>第8章　几何算法</h2><h3 id="判定点是否在多边形内部"><a href="#判定点是否在多边形内部" class="headerlink" title="判定点是否在多边形内部"></a>判定点是否在多边形内部</h3><h3 id="凸包"><a href="#凸包" class="headerlink" title="凸包"></a>凸包</h3><h3 id="最近点对"><a href="#最近点对" class="headerlink" title="最近点对"></a>最近点对</h3><h3 id="扫描线算法"><a href="#扫描线算法" class="headerlink" title="扫描线算法"></a>扫描线算法</h3><h4 id="水平线段和垂直线段的交点"><a href="#水平线段和垂直线段的交点" class="headerlink" title="水平线段和垂直线段的交点"></a>水平线段和垂直线段的交点</h4><h4 id="线段交点"><a href="#线段交点" class="headerlink" title="线段交点"></a>线段交点</h4><h3 id="平面图，多边形和美术馆问题"><a href="#平面图，多边形和美术馆问题" class="headerlink" title="平面图，多边形和美术馆问题"></a>平面图，多边形和美术馆问题</h3><h4 id="多边形三角划分"><a href="#多边形三角划分" class="headerlink" title="多边形三角划分"></a>多边形三角划分</h4><h3 id="相交半平面"><a href="#相交半平面" class="headerlink" title="相交半平面"></a>相交半平面</h3><h3 id="两个凸多边形的交集"><a href="#两个凸多边形的交集" class="headerlink" title="两个凸多边形的交集"></a>两个凸多边形的交集</h3><h3 id="Voronoi图与Fortune算法"><a href="#Voronoi图与Fortune算法" class="headerlink" title="Voronoi图与Fortune算法"></a>Voronoi图与Fortune算法</h3><h2 id="第9章-代数和数值算法"><a href="#第9章-代数和数值算法" class="headerlink" title="第9章　代数和数值算法"></a>第9章　代数和数值算法</h2><h3 id="数值算法的特点"><a href="#数值算法的特点" class="headerlink" title="数值算法的特点"></a>数值算法的特点</h3><h4 id="误差的来源与分类"><a href="#误差的来源与分类" class="headerlink" title="误差的来源与分类"></a>误差的来源与分类</h4><h3 id="求幂运算"><a href="#求幂运算" class="headerlink" title="求幂运算"></a>求幂运算</h3><h3 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h3><h3 id="多项式乘法"><a href="#多项式乘法" class="headerlink" title="多项式乘法"></a>多项式乘法</h3><h3 id="正整数乘法"><a href="#正整数乘法" class="headerlink" title="正整数乘法"></a>正整数乘法</h3><h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><h3 id="递归形式"><a href="#递归形式" class="headerlink" title="递归形式"></a>递归形式</h3><h3 id="Strassen算法"><a href="#Strassen算法" class="headerlink" title="Strassen算法"></a>Strassen算法</h3><h3 id="布尔矩阵"><a href="#布尔矩阵" class="headerlink" title="布尔矩阵"></a>布尔矩阵</h3><h3 id="矩阵链相乘"><a href="#矩阵链相乘" class="headerlink" title="矩阵链相乘"></a>矩阵链相乘</h3><h3 id="正向傅立叶变换"><a href="#正向傅立叶变换" class="headerlink" title="正向傅立叶变换"></a>正向傅立叶变换</h3><h3 id="逆向傅立叶变换"><a href="#逆向傅立叶变换" class="headerlink" title="逆向傅立叶变换"></a>逆向傅立叶变换</h3><h3 id="非线性方程的数值解法"><a href="#非线性方程的数值解法" class="headerlink" title="非线性方程的数值解法"></a>非线性方程的数值解法</h3><h2 id="第10章-归约"><a href="#第10章-归约" class="headerlink" title="第10章　归约"></a>第10章　归约</h2><h3 id="简单字符串匹配问题"><a href="#简单字符串匹配问题" class="headerlink" title="简单字符串匹配问题"></a>简单字符串匹配问题</h3><h3 id="序列比较-1"><a href="#序列比较-1" class="headerlink" title="序列比较"></a>序列比较</h3><h3 id="在无向图中寻找三角形"><a href="#在无向图中寻找三角形" class="headerlink" title="在无向图中寻找三角形"></a>在无向图中寻找三角形</h3><h3 id="线性规划"><a href="#线性规划" class="headerlink" title="线性规划"></a>线性规划</h3><h3 id="问题的界"><a href="#问题的界" class="headerlink" title="问题的界"></a>问题的界</h3><h3 id="常见的错误"><a href="#常见的错误" class="headerlink" title="常见的错误"></a>常见的错误</h3><h2 id="第11章-NP完全问题"><a href="#第11章-NP完全问题" class="headerlink" title="第11章　NP完全问题"></a>第11章　NP完全问题</h2></div>
+
+      <div class="post-copyright">
+      
+                <div class="copyright-item">
+                    <span> 作者: Shen Jiamin</span>
+                </div>
+                <div class="copyright-item">
+                    <span> 链接: <a href="https://www.taraxacum.ink/blog/2020-06-08/Algorithms/">https://www.taraxacum.ink/blog/2020-06-08/Algorithms/</a></span>
+                </div>
+                <div class="copyright-item">
+                    <span> 声明: 本博客所有文章除特别声明外，均采用许可协议 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                </div>
+      
+      </div>
+</div>
+    <div class="tags-back">
+      <div class="tags">
+        
+          <i class="fas fa-tags" aria-hidden="true"></i> <a href="/blog/tags/Algorithms/" class="tag">Algorithms</a>
+        
+          <i class="fas fa-tags" aria-hidden="true"></i> <a href="/blog/tags/Module/" class="tag">Module</a>
+        
+      </div>
+      <div class="back">
+        <a href="javascript:window.history.back();"><i class="fa fa-reply" aria-hidden="true"></i> back</a>
+        <span>· </span>
+        <a href="/blog/"><i class="fa fa-home" aria-hidden="true"></i> home</a>
+      </div>
+
+
+      <hr>
+      <div class="post-nav">
+        
+        
+      </div>
+      <div class="comments">
+        <div class="comments">
+    
+      
+      <script src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+      <div id="comment" class="vcomment" ></div>
+      <script>
+          var notify = 'false' == true ? true : false;
+          var verify = 'false' == true ? true : false;
+          var GUEST_INFO = ['nick','mail','link'];
+          var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+              return GUEST_INFO.indexOf(item) > -1
+          });
+          guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+          window.valine = new Valine({
+              el: '.vcomment',
+              notify: notify,
+              verify: verify,
+              appId: "QVuGgnqavTEoyFmGB3ecG7N7-gzGzoHsz",
+              appKey: "PqMOedzOXVgiWNfW5IwJfP4j",
+              avatar: "mm",
+              placeholder: "Just go go",
+              guest_info:guest_info,
+              pageSize:'10',
+              recordIP: 'false',
+              serverURLs: "https://qvuggnqa.lc-cn-n1-shared.com",
+              emojiCDN: "",
+              enableQQ: "true",
+          });
+      </script>
+    
+  </div>
+      </div>
+</article>
+
+    
+<a id="gotop" href="javascript:" title="返回顶部"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+<script>
+    window.onscroll = function() {scrollFunction()};
+     
+    function scrollFunction() {console.log(121);
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("gotop").style.display = "block";
+        } else {
+            document.getElementById("gotop").style.display = "none";
+        }
+    }
+     
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+    </script>
+    
+
+
+
+
+
+
+    
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        © 2020 <i class="fa fa-heart" id="heart"></i> Shen Jiamin 
+        <br>
+        Powered by 
+        <a href="http://hexo.io" target="_blank" rel="noopener">hexo</a> | Theme is <a href="https://github.com/a2396837/hexo-theme-blank/" target="_blank" rel="noopener">blank</a>
+        
+    </div>  
+  </div>
+<script src="https://www.layuicdn.com/layui-v2.5.6/layui.js"></script>
+
+
+  
+    <script src="/blog/js/script.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.3/build/highlight.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+  
+
+
+
+  <script>
+    $("img").not('.page img').not('.nav-logo img').each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      $(this).wrap(element);
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  
+
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
+
+
+<script>
+  var btntop = $('#gotop');
+  btntop.on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, '300');
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('pre code').each(function (i, block) {
+      hljs.lineNumbersBlock(block);
+    });
+  });
+</script>
+
+
+
+
+</html>
