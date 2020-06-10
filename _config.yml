@@ -15,11 +15,14 @@ timezone: 'Asia/Shanghai'
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://www.taraxacum.ink/blog
 root: /blog/
-permalink: :year-:month-:day/:title/
+permalink: posts/:category/:year:month:day-:abbrlink.html
 permalink_defaults:
 pretty_urls:
-  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
+  trailing_index: false # Set to false to remove trailing 'index.html' from permalinks
   trailing_html: true # Set to false to remove trailing '.html' from permalinks
+abbrlink:
+  alg: crc32
+  rep: hex
 
 # Directory
 source_dir: source
@@ -51,6 +54,7 @@ highlight:
   tab_replace: ''
   wrap: false
   hljs: true
+
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
