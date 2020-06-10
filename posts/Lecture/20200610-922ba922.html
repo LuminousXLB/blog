@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <link rel="icon" href="/blog/img/favicon.ico">
+  
+  
+      <meta name="author" content="Shen Jiamin">
+  
+  
+  
+  
+  
+    <link rel="alternate" href="/blog/atom.xml " title="TaraBlog" type="application/atom+xml">
+  
+  
+  <title>图算法 | TaraBlog</title>
+
+  
+
+  
+
+  
+
+
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&amp;family=Noto+Serif+SC:wght@400;500;700&amp;display=swap"  media="print" onload="this.media='all'">
+  
+
+  
+    
+      <link rel="stylesheet" href="/blog/css/style.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css">
+    
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.0.3/styles/github.min.css">
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+</html>
+
+    
+
+
+<header class="header">
+    <div class="title animated fadeInDown">
+    <div class="title">
+        <a href="/blog/" class="logo">TaraBlog</a>
+    </div>
+    </div> 
+    <div class="navbar animated fadeInDown">
+        <div class="motto">
+            <h2></h2>
+        </div>
+
+</header>
+
+
+
+    
+<div class="nav index" style="height: 60px;">
+    <div class="title animated fadeInDown">
+        <div class="layui-container"> 
+        
+            <div class="nav-logo"> <a href="https://www.taraxacum.ink" title="一时开源一时爽，一直开源一直爽"><i class="fab fa-github" style="font-size: 36px;"></i></a> </div>
+         
+        <div class="nav-list">
+            <button> <span class=""></span><span style="display: block;"></span><span class=""></span> </button>
+            <ul class="layui-nav" lay-filter="">
+            
+            <li class="layui-nav-item">
+                <a href="/blog/">
+                    <i class="fab fa-fort-awesome" aria-hidden="true"></i>
+                    首页
+                </a>
+            </li>
+            
+            <li class="layui-nav-item">
+                <a href="/blog/archives/">
+                    <i class="far fa-calendar-check" aria-hidden="true"></i>
+                    归档
+                </a>
+            </li>
+            
+            <li class="layui-nav-item">
+                <a href="/blog/tags/">
+                    <i class="fas fa-hashtag" aria-hidden="true"></i>
+                    标签
+                </a>
+            </li>
+            
+            <li class="layui-nav-item">
+                <a href="/blog/about/">
+                    <i class="fab fa-grav" aria-hidden="true"></i>
+                    关于
+                </a>
+            </li>
+            
+            <li class="layui-nav-item">
+                <a href="/blog/guestbook/">
+                    <i class="fab fa-telegram" aria-hidden="true"></i>
+                    留言
+                </a>
+            </li>
+            
+            <li class="layui-nav-item">
+                <a href="/blog/link/">
+                    <i class="fab fa-weixin" aria-hidden="true"></i>
+                    友链
+                </a>
+            </li>
+            
+            <li class="layui-nav-item">
+            
+                <div id="dark" onclick="switchDarkMode()"></div>   
+                <script>
+                    if(localStorage.getItem('dark') === '1') {
+                        document.body.classList.add('dark');
+                    }
+                    document.getElementById('dark').innerHTML = document.querySelector("body").classList.contains("dark")?"🌙":"🌞";
+                </script>
+              
+            </li>  
+            <span class="layui-nav-bar" style="left: 342px; top: 78px; width: 0px; opacity: 0;"></span>
+            </ul>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+<article id="post">
+  <div class="post-title"><h1>图算法</h1></div>
+  <div class="post-date">
+        <span title="发表于 2020-06-10"><i class="far fa-calendar-alt" aria-hidden="true"></i> 2020-06-10</span>  |  
+        <span title="更新于 2020-06-11"><i class="fas fa-history" aria-hidden="true"></i> 2020-06-11</span>
+        
+  </div>
+  <br>
+  <div class="content">
+      <div><p>第七章 图算法</p>
+<a id="more"></a>
+
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li>图$G=(V,E)$，顶点的集合$V$，边的集合$E$<ul>
+<li>邻接表（对稀疏图比较有效）</li>
+<li>假设不允许自循环</li>
+<li>有向图，无向图</li>
+<li>顶点$v$的度数$d(v)$<ul>
+<li>有向图要区分入度和出度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>路径：从$v_1$到$v_k$的一条路径是顶点序列$v_1,v_2, \dots ，v_k$<ul>
+<li>简单路径：如果每一个顶点在路径中至多出现一次，则这条路径被称之为简单的</li>
+<li>可达：如果从顶点$v$到顶点$u$存在一条路径，则称$u$是可达的</li>
+<li>回路：是一条起点与终点为同一顶点的路径<ul>
+<li>简单回路（闭链）：若除了第一个和最后一个顶点，其它顶点至多只出现一次，则此回路被称之为简单的</li>
+<li>有时候即使回路不是简单的也被称之为闭链；但本章假定闭链是简单的回路</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>有向图的无向型<ul>
+<li>树、森林</li>
+<li>根树是一个有向树</li>
+</ul>
+</li>
+<li>子图<ul>
+<li>生成树、生成森林</li>
+<li>顶点导出子图</li>
+</ul>
+</li>
+<li>连通子图<ul>
+<li>连通分支是一个最大连通子图</li>
+</ul>
+</li>
+<li>偶图</li>
+<li>加权图</li>
+</ul>
+<h2 id="欧拉图"><a href="#欧拉图" class="headerlink" title="欧拉图"></a>欧拉图</h2><div class="note note-default">
+            <p>给定一个无向连通图$G=(V,E)$，其所有顶点的度为偶数，等价于存在一条封闭路径$P$，使得$E$中的每一条边在$P$中仅出现一次，即存在欧拉回路。</p>
+          </div>
+
+<p><strong>若存在欧拉回路</strong></p>
+<p>沿欧拉回路遍历整张图的所有顶点，沿一条边进入一个定点时必然沿零一条边离开这个顶点。沿该方向将无向图标记为有向图，则图中每个顶点的入度等于出度，入度与出度之和定为偶数。所以原无向图中每个顶点的度数均为偶数。</p>
+<p><strong>若所有顶点的度数均为偶数</strong></p>
+<p><em>归纳假设</em>　对于边数小于$m$的连通图，其所有顶点的度数为偶数，则存在一条包含每条边仅一次的封闭路径，并且我们知道如何找到这条路径。</p>
+<p>不妨设图$G$的边数为$m$。因为图$G$是连通图且所有顶点的度数均为偶数，所以从任意一个顶点出发一定能在图$G$中找到一条封闭路径$P$。<br>若$P$恰好遍历了图中的所有边，则$P$即为该图的欧拉回路。<br>否则，从图$G$中删除$P$上的所有边并忽略孤立的点，记剩下的图为$G’$。因为删去的是一条回路，$G’$中的每个顶点的度数的变化量均为偶数，所以其度数仍然为偶数。则根据归纳假设，$G’$的每个连通分量中，一定都存在一条欧拉回路。将这些欧拉回路与$P$合并即可得到图$G$的欧拉回路。</p>
+<h2 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h2><h3 id="深度优先搜索（DFS）"><a href="#深度优先搜索（DFS）" class="headerlink" title="深度优先搜索（DFS）"></a>深度优先搜索（DFS）</h3><div class="note note-primary">
+            <p>如果$G$是连通的，则通过深度优先搜索可以对它的所有顶点进行标记，并且在算法的执行过程中，它的每条边至少被查看过一次。</p>
+          </div>
+
+<p>每条边恰好被查看过两次(从每一端点各一次)，所以运行时间与边的数目成比例。由于图中可能包含一些与其它点不相连的顶点，所以在运行时间的表达式中必须包括$O(|V|)$。因此总共的运行时间是$O(|V|+|E|)$。</p>
+<ul>
+<li>找连通分支</li>
+<li>DFS数：按照DFS访问节点的顺序编号</li>
+<li>DFS树：按照DFS访问边的顺序构造树</li>
+</ul>
+<div class="note note-primary">
+            <p>令$G=(V,E)$是一个连通的无向图，$T=(V,F)$是$G$的一个DFS树，则$E$中的每一条边$e$，或者属于$F$（即$e \in F$），或者连接$G$中的两个顶点，它们其中一个是$T$中的另一个的祖先。</p>
+          </div>
+
+<div class="note note-primary">
+            <p>令$G=(V,E)$是一个有向图，且令$T=(V,F)$是$G$的DFS树。如果$(v,w)$是$E$中的一条边，满足$v.DFS\_Number&lt; w.DFS\_Number$，则$w$是$v$在树$T$中的一个后代。</p>
+          </div>
+
+
+<h3 id="广度优先搜索（BFS）"><a href="#广度优先搜索（BFS）" class="headerlink" title="广度优先搜索（BFS）"></a>广度优先搜索（BFS）</h3><h2 id="单源最短路径"><a href="#单源最短路径" class="headerlink" title="单源最短路径"></a>单源最短路径</h2><h2 id="最小代价生成树"><a href="#最小代价生成树" class="headerlink" title="最小代价生成树"></a>最小代价生成树</h2><h2 id="全部最短路径"><a href="#全部最短路径" class="headerlink" title="全部最短路径"></a>全部最短路径</h2><h2 id="传递闭包"><a href="#传递闭包" class="headerlink" title="传递闭包"></a>传递闭包</h2><h2 id="双连通分支"><a href="#双连通分支" class="headerlink" title="双连通分支"></a>双连通分支</h2><h2 id="强连通分支"><a href="#强连通分支" class="headerlink" title="强连通分支"></a>强连通分支</h2><h2 id="图分解"><a href="#图分解" class="headerlink" title="图分解"></a>图分解</h2><h2 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h2><h2 id="哈密尔顿回路"><a href="#哈密尔顿回路" class="headerlink" title="哈密尔顿回路"></a>哈密尔顿回路</h2></div>
+
+      <div class="post-copyright">
+      
+                <div class="copyright-item">
+                    <span> 作者: Shen Jiamin</span>
+                </div>
+                <div class="copyright-item">
+                    <span> 链接: <a href="https://www.taraxacum.ink/blog/posts/Lecture/20200610-922ba922.html">https://www.taraxacum.ink/blog/posts/Lecture/20200610-922ba922.html</a></span>
+                </div>
+                <div class="copyright-item">
+                    <span> 声明: 本博客所有文章除特别声明外，均采用许可协议 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                </div>
+      
+      </div>
+</div>
+    <div class="tags-back">
+      <div class="tags">
+        
+          <i class="fas fa-tags" aria-hidden="true"></i> <a href="/blog/tags/Algorithms/" class="tag">Algorithms</a>
+        
+      </div>
+      <div class="back">
+        <a href="javascript:window.history.back();"><i class="fa fa-reply" aria-hidden="true"></i> back</a>
+        <span>· </span>
+        <a href="/blog/"><i class="fa fa-home" aria-hidden="true"></i> home</a>
+      </div>
+
+
+      <hr>
+      <div class="post-nav">
+        
+        
+        <div class="post-nav-next post-nav-item">
+            <a href="/blog/posts/Lecture/20200608-bf8d4105.html" >算法与复杂性<i class="fa fa-chevron-right"></i></a>
+        </div>
+        
+      </div>
+      <div class="comments">
+        <div class="comments">
+    
+      
+      <script src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+      <div id="comment" class="vcomment" ></div>
+      <script>
+          var notify = 'false' == true ? true : false;
+          var verify = 'false' == true ? true : false;
+          var GUEST_INFO = ['nick','mail','link'];
+          var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+              return GUEST_INFO.indexOf(item) > -1
+          });
+          guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+          window.valine = new Valine({
+              el: '.vcomment',
+              notify: notify,
+              verify: verify,
+              appId: "QVuGgnqavTEoyFmGB3ecG7N7-gzGzoHsz",
+              appKey: "PqMOedzOXVgiWNfW5IwJfP4j",
+              avatar: "mm",
+              placeholder: "Just go go",
+              guest_info:guest_info,
+              pageSize:'10',
+              recordIP: 'false',
+              serverURLs: "https://qvuggnqa.lc-cn-n1-shared.com",
+              emojiCDN: "",
+              enableQQ: "true",
+          });
+      </script>
+    
+  </div>
+      </div>
+</article>
+
+    
+<a id="gotop" href="javascript:" title="返回顶部"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+<script>
+    window.onscroll = function() {scrollFunction()};
+     
+    function scrollFunction() {console.log(121);
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("gotop").style.display = "block";
+        } else {
+            document.getElementById("gotop").style.display = "none";
+        }
+    }
+     
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+    </script>
+    
+
+
+
+
+
+
+    
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        © 2020 <i class="fa fa-heart" id="heart"></i> Shen Jiamin 
+        <br>
+        Powered by 
+        <a href="http://hexo.io" target="_blank" rel="noopener">hexo</a> | Theme is <a href="https://github.com/a2396837/hexo-theme-blank/" target="_blank" rel="noopener">blank</a>
+        
+    </div>  
+  </div>
+<script src="https://www.layuicdn.com/layui-v2.5.6/layui.js"></script>
+
+
+  
+    <script src="/blog/js/script.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.3/build/highlight.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+  
+
+
+
+  <script>
+    $("img").not('.page img').not('.nav-logo img').each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      $(this).wrap(element);
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  
+
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
+
+
+<script>
+  var btntop = $('#gotop');
+  btntop.on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, '300');
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('pre code').each(function (i, block) {
+      hljs.lineNumbersBlock(block);
+    });
+  });
+</script>
+
+
+
+
+</html>
