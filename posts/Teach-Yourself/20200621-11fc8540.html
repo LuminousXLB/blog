@@ -19,7 +19,7 @@
     <link rel="alternate" href="/blog/atom.xml " title="TaraBlog" type="application/atom+xml">
   
   
-  <title>分类 | TaraBlog</title>
+  <title>Logical Foundations - Proof by Case Analysis | TaraBlog</title>
 
   
 
@@ -141,29 +141,169 @@
 
 
 
-    <div class="pagetitle">
-    <h1>分类</h1>
-</div>
-<div class="indexpage">
-    <article class="post-wrap page">
+    
+<article id="post">
+  <div class="post-title"><h1>Logical Foundations - Proof by Case Analysis</h1></div>
+  <div class="post-date">
+        <span title="发表于 2020-06-21"><i class="far fa-calendar-alt" aria-hidden="true"></i> 2020-06-21</span>  |  
+        <span title="更新于 2020-06-21"><i class="fas fa-history" aria-hidden="true"></i> 2020-06-21</span>
         
-        <section class="content">
-            
-                <div class="category">
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Teach-Yourself/">Teach Yourself</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Lecture/">Lecture</a><span class="category-list-count">2</span></li></ul>
   </div>
-  
-            
-        </section>
-    </article>
-    <div class="comments">
+  <br>
+  <div class="content">
+      <div><blockquote>
+<p><a href="https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html#lab37" target="_blank" rel="noopener">https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html#lab37</a></p>
+</blockquote>
+<a id="more"></a>
+
+<pre><code class="coq">Theorem plus_1_neq_0_firsttry : forall n : nat,
+  (n + 1) =? 0 = false.</code></pre>
+<p>因为没有给出对<code>n</code>的描述，无法得知应当应用加法的哪一条。所以应当针对不同的情况讨论</p>
+<pre><code class="coq">Proof.
+  intros n. destruct n as [ | n&#39;] eqn:E.
+  - reflexivity.
+  - reflexivity.   Qed.</code></pre>
+<ul>
+<li><code>destruct</code>用于拆分<code>n</code>，得到两个子目标<ul>
+<li><code>as [ | n&#39;]</code>：在每一个子目标中引入的变量名<ul>
+<li>第一个是空的，因为没有构造参数</li>
+<li>第二个的构造参数命名为<code>n&#39;</code></li>
+</ul>
+</li>
+<li><code>eqn:E</code>：把等式命名为<code>E</code><ul>
+<li>指的是<code>n = 0</code>和<code>n = S n&#39;</code>两个等式</li>
+<li>如果省略了，那么分情况证明时会忽略这个假设</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>bullets <code>-</code>：标志证明的不同分支<ul>
+<li>后面跟的是一个子目标的整个证明</li>
+<li>不是必要的，但是有助于可读性</li>
+</ul>
+</li>
+</ul>
+<h3 id="逻辑非对合律"><a href="#逻辑非对合律" class="headerlink" title="逻辑非对合律"></a>逻辑非对合律</h3><pre><code class="coq">Theorem negb_involutive : ∀b : bool,
+  negb (negb b) = b.
+Proof.
+  intros b. destruct b eqn:E.
+  - reflexivity.
+  - reflexivity. Qed.</code></pre>
+<h3 id="逻辑与交换律"><a href="#逻辑与交换律" class="headerlink" title="逻辑与交换律"></a>逻辑与交换律</h3><pre><code class="coq">Theorem andb_commutative : ∀b c, andb b c = andb c b.
+Proof.
+  intros b c. destruct b eqn:Eb.
+  - destruct c eqn:Ec.
+    + reflexivity.
+    + reflexivity.
+  - destruct c eqn:Ec.
+    + reflexivity.
+    + reflexivity.
+Qed.</code></pre>
+<ul>
+<li>除了<code>-</code>、<code>+</code>还可以用<code>*</code>，或者用大括号包起来</li>
+<li>在大括号内部可以重用其外部已经使用过的bullet</li>
+</ul>
+<pre><code class="coq">Theorem andb_commutative&#39; : forall b c, andb b c = andb c b.
+Proof.
+  intros b c. destruct b eqn:Eb.
+  { destruct c eqn:Ec.
+    { reflexivity. }
+    { reflexivity. } }
+  { destruct c eqn:Ec.
+    { reflexivity. }
+    { reflexivity. } }
+Qed.</code></pre>
+<h3 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h3><pre><code class="coq">Theorem andb_commutative&#39;&#39; :
+  forall b c, andb b c = andb c b.
+Proof.
+  intros [] [].
+  - reflexivity.
+  - reflexivity.
+  - reflexivity.
+  - reflexivity.
+Qed.</code></pre>
+<h3 id="Exercise-Solution"><a href="#Exercise-Solution" class="headerlink" title="Exercise Solution"></a>Exercise Solution</h3><pre><code class="coq">Theorem andb_true_elim2 : forall b c : bool,
+  andb b c = true -&gt; c = true.
+Proof.
+  intros b c.
+  destruct b eqn:Eb.
+  - simpl. intros H. rewrite -&gt; H. reflexivity.
+  - simpl. destruct c eqn:Ec.
+    + intros H. reflexivity.
+    + intros H. rewrite -&gt; H. reflexivity.
+Qed.</code></pre>
+</div>
+
+      <div class="post-copyright">
+      
+                <div class="copyright-item">
+                    <span> 作者: Shen Jiamin</span>
+                </div>
+                <div class="copyright-item">
+                    <span> 链接: <a href="https://www.taraxacum.ink/blog/posts/Teach-Yourself/20200621-11fc8540.html">https://www.taraxacum.ink/blog/posts/Teach-Yourself/20200621-11fc8540.html</a></span>
+                </div>
+                <div class="copyright-item">
+                    <span> 声明: 本博客所有文章除特别声明外，均采用许可协议 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                </div>
+      
+      </div>
+</div>
+    <div class="tags-back">
+      <div class="tags">
+        
+          <i class="fas fa-tags" aria-hidden="true"></i> <a href="/blog/tags/Software-Foundations/" class="tag">Software Foundations</a>
+        
+      </div>
+      <div class="back">
+        <a href="javascript:window.history.back();"><i class="fa fa-reply" aria-hidden="true"></i> back</a>
+        <span>· </span>
+        <a href="/blog/"><i class="fa fa-home" aria-hidden="true"></i> home</a>
+      </div>
+
+
+      <hr>
+      <div class="post-nav">
+        
+        
+        <div class="post-nav-next post-nav-item">
+            <a href="/blog/posts/Teach-Yourself/20200621-8f9810e3.html" >Logical Foundations - Proof by Rewriting<i class="fa fa-chevron-right"></i></a>
+        </div>
+        
+      </div>
+      <div class="comments">
+        <div class="comments">
+    
+      
+      <script src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+      <div id="comment" class="vcomment" ></div>
+      <script>
+          var notify = 'false' == true ? true : false;
+          var verify = 'false' == true ? true : false;
+          var GUEST_INFO = ['nick','mail','link'];
+          var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+              return GUEST_INFO.indexOf(item) > -1
+          });
+          guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+          window.valine = new Valine({
+              el: '.vcomment',
+              notify: notify,
+              verify: verify,
+              appId: "QVuGgnqavTEoyFmGB3ecG7N7-gzGzoHsz",
+              appKey: "PqMOedzOXVgiWNfW5IwJfP4j",
+              avatar: "mm",
+              placeholder: "Just go go",
+              guest_info:guest_info,
+              pageSize:'10',
+              recordIP: 'false',
+              serverURLs: "https://qvuggnqa.lc-cn-n1-shared.com",
+              emojiCDN: "",
+              enableQQ: "true",
+          });
+      </script>
     
   </div>
-</div>
-
-
-
-
+      </div>
+</article>
 
     
 <a id="gotop" href="javascript:" title="返回顶部"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
