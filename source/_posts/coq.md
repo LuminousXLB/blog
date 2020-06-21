@@ -9,14 +9,11 @@ date: 2020-06-21 13:26:59
 ### Volume 1
 
 - Functional Programming in Coq (Basics)
-  - Top
   - Introduction
   - {% post_link coq1-basics-01 'Data and Functions' %}
   - {% post_link coq1-basics-02 'Proof by Simplification' %}
   - {% post_link coq1-basics-03 'Proof by Rewriting' %}
-  - Proof by Case Analysis
-  - More on Notation (Optional)
-  - Fixpoints and Structural Recursion (Optional)
+  - {% post_link coq1-basics-04 'Proof by Case Analysis' %}
   - More Exercises
 
 
