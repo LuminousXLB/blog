@@ -8,6 +8,7 @@ date: 2020-06-21 13:26:59
 
 > https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html#lab19
 
+<!-- more -->
 
 {% note info %}
 **CoqIDE的快捷键**
