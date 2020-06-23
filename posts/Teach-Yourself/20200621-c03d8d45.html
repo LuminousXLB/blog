@@ -19,7 +19,7 @@
     <link rel="alternate" href="/blog/atom.xml " title="TaraBlog" type="application/atom+xml">
   
   
-  <title>归档: 2020 | TaraBlog</title>
+  <title>Logical Foundations - Proof by Induction | TaraBlog</title>
 
   
 
@@ -142,81 +142,119 @@
 
 
     
-<div class="post-wrap archive">
-    
-    
+<article id="post">
+  <div class="post-title"><h1>Logical Foundations - Proof by Induction</h1></div>
+  <div class="post-date">
+        <span title="发表于 2020-06-21"><i class="far fa-calendar-alt" aria-hidden="true"></i> 2020-06-21</span>  |  
+        <span title="更新于 2020-06-23"><i class="fas fa-history" aria-hidden="true"></i> 2020-06-23</span>
         
-        
-        <div class="yearzodiac">
-                <div class="years">
-                  <h1>2020  <i class="symbolic-animals icon-rat"></i></h1>
-                </div>
-        </div>
-        
-        <li class="archive-item">
-            <a class="archive-item-link" href="/blog/posts/Teach-Yourself/20200621-c03d8d45.html">Logical Foundations - Proof by Induction</a>
-            <span class="archive-item-date">2020-06-21</span>
-        </li>
-    
-        
-        
-        <li class="archive-item">
-            <a class="archive-item-link" href="/blog/posts/Teach-Yourself/20200621-11fc8540.html">Logical Foundations - Proof by Case Analysis</a>
-            <span class="archive-item-date">2020-06-21</span>
-        </li>
-    
-        
-        
-        <li class="archive-item">
-            <a class="archive-item-link" href="/blog/posts/Teach-Yourself/20200621-8f9810e3.html">Logical Foundations - Proof by Rewriting</a>
-            <span class="archive-item-date">2020-06-21</span>
-        </li>
-    
-        
-        
-        <li class="archive-item">
-            <a class="archive-item-link" href="/blog/posts/Teach-Yourself/20200621-f89f2075.html">Logical Foundations - Proof by Simplification</a>
-            <span class="archive-item-date">2020-06-21</span>
-        </li>
-    
-        
-        
-        <li class="archive-item">
-            <a class="archive-item-link" href="/blog/posts/Teach-Yourself/20200621-9c7c44aa.html">Software Foundations</a>
-            <span class="archive-item-date">2020-06-21</span>
-        </li>
-    
-        
-        
-        <li class="archive-item">
-            <a class="archive-item-link" href="/blog/posts/Teach-Yourself/20200621-99e24dea.html">Logical Foundations - Data and Functions</a>
-            <span class="archive-item-date">2020-06-21</span>
-        </li>
-    
-        
-        
-        <li class="archive-item">
-            <a class="archive-item-link" href="/blog/posts/Lecture/20200610-922ba922.html">图算法</a>
-            <span class="archive-item-date">2020-06-10</span>
-        </li>
-    
-        
-        
-        <li class="archive-item">
-            <a class="archive-item-link" href="/blog/posts/Lecture/20200608-bf8d4105.html">算法与复杂性</a>
-            <span class="archive-item-date">2020-06-08</span>
-        </li>
-    
-    <div class="paginator">
-      <span class="page-number current">1</span>
   </div>
   <br>
+  <div class="content">
+      <div><blockquote>
+<p><a href="https://softwarefoundations.cis.upenn.edu/lf-current/Induction.html" target="_blank" rel="noopener">https://softwarefoundations.cis.upenn.edu/lf-current/Induction.html</a></p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="Proof-by-Induction"><a href="#Proof-by-Induction" class="headerlink" title="Proof by Induction"></a>Proof by Induction</h2><p>数学归纳法</p>
+<h3 id="右零元"><a href="#右零元" class="headerlink" title="右零元"></a>右零元</h3><ul>
+<li>$n = 0$</li>
+<li>$n = n’ \rightarrow n = S n’$</li>
+</ul>
+<pre><code class="coq">Theorem plus_n_O : ∀n:nat, n = n + 0.
+Proof.
+  intros n. induction n as [| n&#39; IHn&#39;].
+  - (* n = 0 *) reflexivity.
+  - (* n = S n&#39; *) simpl. rewrite &lt;- IHn&#39;. reflexivity. Qed.</code></pre>
+<h2 id="Proofs-Within-Proofs"><a href="#Proofs-Within-Proofs" class="headerlink" title="Proofs Within Proofs"></a>Proofs Within Proofs</h2><p><code>assert</code>: state and prove the needed “sub-theorem” right at the point where it is used.</p>
+<pre><code class="coq">Theorem mult_0_plus&#39; : forall n m : nat,
+  (0 + n) * m = n * m.
+Proof.
+  intros n m.
+  assert (H: 0 + n = n). { reflexivity. }
+  rewrite -&gt; H.
+  reflexivity.  Qed.</code></pre>
+<h2 id="Formal-vs-Informal-Proof"><a href="#Formal-vs-Informal-Proof" class="headerlink" title="Formal vs. Informal Proof"></a>Formal vs. Informal Proof</h2><p>好好写注释</p>
+<pre><code class="coq">Theorem plus_assoc&#39;&#39; : forall n m p : nat,
+  n + (m + p) = (n + m) + p.
+Proof.
+  intros n m p. induction n as [| n&#39; IHn&#39;].
+  - (* n = 0 *)
+    reflexivity.
+  - (* n = S n&#39; *)
+    simpl. rewrite -&gt; IHn&#39;. reflexivity.   Qed.</code></pre>
 </div>
 
+      <div class="post-copyright">
+      
+                <div class="copyright-item">
+                    <span> 作者: Shen Jiamin</span>
+                </div>
+                <div class="copyright-item">
+                    <span> 链接: <a href="https://www.taraxacum.ink/blog/posts/Teach-Yourself/20200621-c03d8d45.html">https://www.taraxacum.ink/blog/posts/Teach-Yourself/20200621-c03d8d45.html</a></span>
+                </div>
+                <div class="copyright-item">
+                    <span> 声明: 本博客所有文章除特别声明外，均采用许可协议 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                </div>
+      
+      </div>
+</div>
+    <div class="tags-back">
+      <div class="tags">
+        
+          <i class="fas fa-tags" aria-hidden="true"></i> <a href="/blog/tags/Software-Foundations/" class="tag">Software Foundations</a>
+        
+      </div>
+      <div class="back">
+        <a href="javascript:window.history.back();"><i class="fa fa-reply" aria-hidden="true"></i> back</a>
+        <span>· </span>
+        <a href="/blog/"><i class="fa fa-home" aria-hidden="true"></i> home</a>
+      </div>
 
 
-
-
+      <hr>
+      <div class="post-nav">
+        
+        
+        <div class="post-nav-next post-nav-item">
+            <a href="/blog/posts/Teach-Yourself/20200621-11fc8540.html" >Logical Foundations - Proof by Case Analysis<i class="fa fa-chevron-right"></i></a>
+        </div>
+        
+      </div>
+      <div class="comments">
+        <div class="comments">
+    
+      
+      <script src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+      <div id="comment" class="vcomment" ></div>
+      <script>
+          var notify = 'false' == true ? true : false;
+          var verify = 'false' == true ? true : false;
+          var GUEST_INFO = ['nick','mail','link'];
+          var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+              return GUEST_INFO.indexOf(item) > -1
+          });
+          guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+          window.valine = new Valine({
+              el: '.vcomment',
+              notify: notify,
+              verify: verify,
+              appId: "QVuGgnqavTEoyFmGB3ecG7N7-gzGzoHsz",
+              appKey: "PqMOedzOXVgiWNfW5IwJfP4j",
+              avatar: "mm",
+              placeholder: "Just go go",
+              guest_info:guest_info,
+              pageSize:'10',
+              recordIP: 'false',
+              serverURLs: "https://qvuggnqa.lc-cn-n1-shared.com",
+              emojiCDN: "",
+              enableQQ: "true",
+          });
+      </script>
+    
+  </div>
+      </div>
+</article>
 
     
 <a id="gotop" href="javascript:" title="返回顶部"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
