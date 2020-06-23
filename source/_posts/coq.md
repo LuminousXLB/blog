@@ -16,4 +16,8 @@ date: 2020-06-21 13:26:59
   - {% post_link coq1-basics-04 'Proof by Case Analysis' %}
   - More Exercises
 
-
+- {% post_link coq1-induction 'Proof by Induction (Induction)' %}
+  - Proof by Induction
+  - Proofs Within Proofs
+  - Formal vs. Informal Proof
+  - More Exercises
