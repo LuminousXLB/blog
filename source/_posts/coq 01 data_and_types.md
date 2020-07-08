@@ -1,14 +1,23 @@
 ---
-title: Logical Foundations - Data and Functions
+title: Coq 01 - 数据和类型
 category: Teach Yourself
-tags: Software Foundations
+tags: Coq
 abbrlink: 99e24dea
 date: 2020-06-21 13:26:59
 ---
 
-> https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html#lab19
+- `Inductive`
+- `Definition`
+  - `Compute`
+  - `Example` - `Proof`
+- `Notation`
+- `Check`
+- `Module XX` - `End XX`
+- `Fixpoint`
 
 <!-- more -->
+
+> https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html#lab19
 
 {% note info %}
 **CoqIDE的快捷键**
@@ -18,9 +27,7 @@ Notice that for all these buttons, except for the *gears* button, their operatio
 https://coq.inria.fr/distrib/current/refman/practical-tools/coqide.html#coqintegrateddevelopmentenvironment
 {% endnote %}
 
-## Enumerated Types
-
-### 定义一个枚举类型
+## 枚举类型(`Inductive`)
 
 ``` coq
 Inductive day : Type :=
@@ -33,7 +40,7 @@ Inductive day : Type :=
   | sunday.
 ```
 
-### 定义一个函数
+## 函数(`Definition`)
 
 ``` coq
 Definition next_weekday (d:day) : day :=
@@ -48,25 +55,21 @@ Definition next_weekday (d:day) : day :=
   end.
 ```
 
-使用函数（三种方法）
-
-1. `Compute`：求值
+### `Compute`
    ``` coq
    Compute (next_weekday friday).
    (* ==> monday : day *)
    ```
-2. `Example - Proof`：函数的一个实例
+
+### `Example` - `Proof`
    ``` coq
    Example test_next_weekday:
      (next_weekday (next_weekday saturday)) = tuesday.
    Proof. simpl. reflexivity. Qed.
    ```
    `Example`做出了一个断言并命名，是一个需要使用Coq命名的目标；`Proof`做出证明。
-3. extract：生成可以执行的机器代码
 
-## Booleans
-
-### 定义布尔类型
+## 布尔类型
 
 ``` coq
 Inductive bool : Type :=
@@ -99,16 +102,14 @@ Definition orb (b1:bool) (b2:bool) : bool :=
   end.
 ```
 
-用运算符表示函数调用
+### 运算符(`Notation`)
 
 ``` coq
 Notation "x && y" := (andb x y).
 Notation "x || y" := (orb x y).
 ```
 
-## Types
-
-输出表达式的类型
+## 输出表达式的类型(`Check`)
 
 ``` coq
 Check true.
@@ -117,7 +118,7 @@ Check negb.
 (* ===> negb : bool -> bool *)
 ```
 
-## New Types from Old
+## 从已有类型构造新类型
 
 类型的定义中包括一组构造表达式
 `primary (p : rgb)`：*the constructor `primary` applied to the argument `p`*
@@ -152,7 +153,7 @@ Definition isred (c : color) : bool :=
   end.
 ```
 
-## Tuples
+## 元组
 
 ### 定义半字节（nybble）
 
@@ -182,7 +183,7 @@ Compute (all_zero (bits B0 B0 B0 B0)).
 (* ===> true : bool *)
 ```
 
-## Module
+## 模块(Module)
 
 If we enclose a collection of declarations between `Module X` and `End X` markers, then, in the remainder of the file after the `End`, these definitions are referred to by names like `X.foo` instead of just `foo`.
 
@@ -196,11 +197,9 @@ Module NatPlayground.
 End NatPlayground.
 ```
 
-## Numbers
+## 自然数
 
-### 整数
-
-unary number
+### unary number
 
 ``` coq
 Inductive nat : Type :=
@@ -216,7 +215,7 @@ Definition pred (n : nat) : nat :=
   end.
 ```
 
-算术运算
+### 算术运算
 
 ``` coq
 Check (S (S (S (S O)))).
@@ -231,7 +230,7 @@ Compute (minustwo 4).
   (* ===> 2 : nat *)
 ```
 
-判断奇偶
+### 判断奇偶(`Fixpoint`)
 
 ``` coq
 Fixpoint evenb (n:nat) : bool :=
@@ -246,7 +245,7 @@ Fixpoint evenb (n:nat) : bool :=
 Definition oddb (n:nat) : bool := negb (evenb n).
 ```
 
-算术运算
+### 算术运算
 
 ``` coq
 Fixpoint plus (n : nat) (m : nat) : nat :=
@@ -276,7 +275,7 @@ Fixpoint exp (base power : nat) : nat :=
   end.
 ```
 
-使用运算符（定义运算符的优先级、运算顺序）
+## 使用运算符（定义运算符的优先级、运算顺序）
 
 ``` coq
 Notation "x + y" := (plus x y)
@@ -290,7 +289,7 @@ Notation "x * y" := (mult x y)
                        : nat_scope.
 ```
 
-比较（嵌套的match）
+## 比较（嵌套的match）
 
 ``` coq
 Fixpoint eqb (n m : nat) : bool :=
