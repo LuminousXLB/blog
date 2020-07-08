@@ -19,7 +19,7 @@
     <link rel="alternate" href="/blog/atom.xml " title="TaraBlog" type="application/atom+xml">
   
   
-  <title>Logical Foundations - Proof by Simplification | TaraBlog</title>
+  <title>Coq 02 - 策略 | TaraBlog</title>
 
   
 
@@ -143,20 +143,30 @@
 
     
 <article id="post">
-  <div class="post-title"><h1>Logical Foundations - Proof by Simplification</h1></div>
+  <div class="post-title"><h1>Coq 02 - 策略</h1></div>
   <div class="post-date">
         <span title="发表于 2020-06-21"><i class="far fa-calendar-alt" aria-hidden="true"></i> 2020-06-21</span>  |  
-        <span title="更新于 2020-06-23"><i class="fas fa-history" aria-hidden="true"></i> 2020-06-23</span>
+        <span title="更新于 2020-07-08"><i class="fas fa-history" aria-hidden="true"></i> 2020-07-08</span>
         
   </div>
   <br>
   <div class="content">
-      <div><blockquote>
-<p><a href="https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html#lab33" target="_blank" rel="noopener">https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html#lab33</a></p>
-</blockquote>
+      <div><ul>
+<li><code>intros</code></li>
+<li><code>simpl</code></li>
+<li><code>reflexivity</code></li>
+<li><code>rewrite</code></li>
+<li><code>destruct</code></li>
+<li><code>induction</code></li>
+<li><code>assert</code></li>
+<li><code>replace</code></li>
+</ul>
 <a id="more"></a>
 
-<h2 id="证明左零元"><a href="#证明左零元" class="headerlink" title="证明左零元"></a>证明左零元</h2><pre><code class="coq">Theorem plus_O_n : forall n : nat, 0 + n = n.
+<blockquote>
+<p><a href="https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html#lab33" target="_blank" rel="noopener">https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html#lab33</a></p>
+</blockquote>
+<h2 id="Simplification"><a href="#Simplification" class="headerlink" title="Simplification"></a>Simplification</h2><pre><code class="coq">Theorem plus_O_n : forall n : nat, 0 + n = n.
 Proof.
   intros n. simpl. reflexivity.  Qed.</code></pre>
 <ul>
@@ -172,6 +182,143 @@ Proof.
 Theorem mult_0_l : ∀n:nat, 0 * n = 0.
 Proof.
   intros n. reflexivity. Qed.</code></pre>
+<h2 id="Rewriting"><a href="#Rewriting" class="headerlink" title="Rewriting"></a>Rewriting</h2><h3 id="引入条件并使用"><a href="#引入条件并使用" class="headerlink" title="引入条件并使用"></a>引入条件并使用</h3><pre><code class="coq">Theorem plus_id_example : forall n m:nat,
+  n = m -&gt;
+  n + n = m + m.
+
+Proof.
+  (* move both quantifiers into the context: *)
+  intros n m.
+  (* move the hypothesis into the context: *)
+  intros H.
+  (* rewrite the goal using the hypothesis: *)
+  rewrite -&gt; H.
+  reflexivity.  Qed.</code></pre>
+<ul>
+<li>The arrow symbol is pronounced “implies.”</li>
+<li>第二行引入条件 <code>n = m</code> 并命名为 <code>H</code>.</li>
+<li>第三行rewrite当前的目标：把当前目标中，<code>H</code>的左边替换<code>H</code>的右边（即按照从左到右的方向应用<code>H</code>到当前的目标上）</li>
+</ul>
+<h3 id="使用已经证明的定理"><a href="#使用已经证明的定理" class="headerlink" title="使用已经证明的定理"></a>使用已经证明的定理</h3><pre><code class="coq">Theorem mult_0_plus : forall n m : nat,
+  (0 + n) * m = n * m.
+Proof.
+  intros n m.
+  rewrite -&gt; plus_O_n.
+  reflexivity.  Qed.</code></pre>
+<h3 id="指定rewrite的方式"><a href="#指定rewrite的方式" class="headerlink" title="指定rewrite的方式"></a>指定rewrite的方式</h3><pre><code class="coq">Theorem plus_1_l : forall n: nat, 1 + n = S n.
+
+Theorem mult_S_1 : forall n m : nat,
+  m = S n -&gt;
+  m * (1 + n) = m * m.
+Proof.
+  intros n m H.
+  rewrite -&gt; (plus_1_l n).
+  rewrite -&gt; H.
+  reflexivity.
+Qed.</code></pre>
+<h2 id="分情况分析"><a href="#分情况分析" class="headerlink" title="分情况分析"></a>分情况分析</h2><pre><code class="coq">Theorem plus_1_neq_0_firsttry : forall n : nat,
+  (n + 1) =? 0 = false.</code></pre>
+<p>因为没有给出对<code>n</code>的描述，无法得知应当应用加法的哪一条。所以应当针对不同的情况讨论</p>
+<pre><code class="coq">Proof.
+  intros n. destruct n as [ | n&#39;] eqn:E.
+  - reflexivity.
+  - reflexivity.   Qed.</code></pre>
+<ul>
+<li><code>destruct</code>用于拆分<code>n</code>，得到两个子目标<ul>
+<li><code>as [ | n&#39;]</code>：在每一个子目标中引入的变量名<ul>
+<li>第一个是空的，因为没有构造参数</li>
+<li>第二个的构造参数命名为<code>n&#39;</code></li>
+</ul>
+</li>
+<li><code>eqn:E</code>：把等式命名为<code>E</code><ul>
+<li>指的是<code>n = 0</code>和<code>n = S n&#39;</code>两个等式</li>
+<li>如果省略了，那么分情况证明时会忽略这个假设</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>bullets <code>-</code>：标志证明的不同分支<ul>
+<li>后面跟的是一个子目标的整个证明</li>
+<li>不是必要的，但是有助于可读性</li>
+</ul>
+</li>
+</ul>
+<h3 id="逻辑非对合律"><a href="#逻辑非对合律" class="headerlink" title="逻辑非对合律"></a>逻辑非对合律</h3><pre><code class="coq">Theorem negb_involutive : ∀b : bool,
+  negb (negb b) = b.
+Proof.
+  intros b. destruct b eqn:E.
+  - reflexivity.
+  - reflexivity. Qed.</code></pre>
+<h3 id="逻辑与交换律"><a href="#逻辑与交换律" class="headerlink" title="逻辑与交换律"></a>逻辑与交换律</h3><pre><code class="coq">Theorem andb_commutative : ∀b c, andb b c = andb c b.
+Proof.
+  intros b c. destruct b eqn:Eb.
+  - destruct c eqn:Ec.
+    + reflexivity.
+    + reflexivity.
+  - destruct c eqn:Ec.
+    + reflexivity.
+    + reflexivity.
+Qed.</code></pre>
+<ul>
+<li>除了<code>-</code>、<code>+</code>还可以用<code>*</code>，或者用大括号包起来</li>
+<li>在大括号内部可以重用其外部已经使用过的bullet</li>
+</ul>
+<pre><code class="coq">Theorem andb_commutative&#39; : forall b c, andb b c = andb c b.
+Proof.
+  intros b c. destruct b eqn:Eb.
+  { destruct c eqn:Ec.
+    { reflexivity. }
+    { reflexivity. } }
+  { destruct c eqn:Ec.
+    { reflexivity. }
+    { reflexivity. } }
+Qed.</code></pre>
+<h3 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h3><pre><code class="coq">Theorem andb_commutative&#39;&#39; :
+  forall b c, andb b c = andb c b.
+Proof.
+  intros [] [].
+  - reflexivity.
+  - reflexivity.
+  - reflexivity.
+  - reflexivity.
+Qed.</code></pre>
+<h3 id="Exercise-Solution"><a href="#Exercise-Solution" class="headerlink" title="Exercise Solution"></a>Exercise Solution</h3><pre><code class="coq">Theorem andb_true_elim2 : forall b c : bool,
+  andb b c = true -&gt; c = true.
+Proof.
+  intros b c.
+  destruct b eqn:Eb.
+  - simpl. intros H. rewrite -&gt; H. reflexivity.
+  - simpl. destruct c eqn:Ec.
+    + intros H. reflexivity.
+    + intros H. rewrite -&gt; H. reflexivity.
+Qed.</code></pre>
+<h2 id="数学归纳法"><a href="#数学归纳法" class="headerlink" title="数学归纳法"></a>数学归纳法</h2><h3 id="右零元"><a href="#右零元" class="headerlink" title="右零元"></a>右零元</h3><ul>
+<li>$n = 0$</li>
+<li>$n = n’ \rightarrow n = S n’$</li>
+</ul>
+<pre><code class="coq">Theorem plus_n_O : ∀n:nat, n = n + 0.
+Proof.
+  intros n. induction n as [| n&#39; IHn&#39;].
+  - (* n = 0 *) reflexivity.
+  - (* n = S n&#39; *) simpl. rewrite &lt;- IHn&#39;. reflexivity. Qed.</code></pre>
+<h2 id="子定理"><a href="#子定理" class="headerlink" title="子定理"></a>子定理</h2><p><code>assert</code>: state and prove the needed “sub-theorem” right at the point where it is used.</p>
+<pre><code class="coq">Theorem mult_0_plus&#39; : forall n m : nat,
+  (0 + n) * m = n * m.
+Proof.
+  intros n m.
+  assert (H: 0 + n = n). { reflexivity. }
+  rewrite -&gt; H.
+  reflexivity.  Qed.</code></pre>
+<h2 id="代换"><a href="#代换" class="headerlink" title="代换"></a>代换</h2><p><code>replace</code> 将表达式中所有的E1替换成E2</p>
+<pre><code class="coq">Theorem plus_swap&#39; : forall n m p : nat,
+  n + (m + p) = m + (n + p).
+Proof.
+  intros n m p.
+  rewrite -&gt; plus_assoc.
+  replace (n + m) with (m + n).
+  - rewrite -&gt; plus_assoc. reflexivity.
+  - rewrite -&gt; plus_comm. reflexivity.
+Qed.</code></pre>
 </div>
 
       <div class="post-copyright">
@@ -191,7 +338,7 @@ Proof.
     <div class="tags-back">
       <div class="tags">
         
-          <i class="fas fa-tags" aria-hidden="true"></i> <a href="/blog/tags/Software-Foundations/" class="tag">Software Foundations</a>
+          <i class="fas fa-tags" aria-hidden="true"></i> <a href="/blog/tags/Coq/" class="tag">Coq</a>
         
       </div>
       <div class="back">
@@ -204,13 +351,9 @@ Proof.
       <hr>
       <div class="post-nav">
         
-        <div class="post-nav-prev post-nav-item">
-            <a href="/blog/posts/Teach-Yourself/20200621-8f9810e3.html" >Logical Foundations - Proof by Rewriting<i class="fa fa-chevron-left"></i></a>
-        </div>
-        
         
         <div class="post-nav-next post-nav-item">
-            <a href="/blog/posts/Teach-Yourself/20200621-9c7c44aa.html" >Software Foundations<i class="fa fa-chevron-right"></i></a>
+            <a href="/blog/posts/Teach-Yourself/20200621-99e24dea.html" >Coq 01 - 数据和类型<i class="fa fa-chevron-right"></i></a>
         </div>
         
       </div>
