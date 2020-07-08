@@ -18,7 +18,8 @@ date: 2020-06-21 21:18:19
 
 <!-- more -->
 
-> https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html#lab33
+> https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html
+> https://softwarefoundations.cis.upenn.edu/lf-current/Induction.html
 
 ## Simplification
 
