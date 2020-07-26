@@ -214,44 +214,47 @@
 <script src="https://www.layuicdn.com/layui-v2.5.6/layui.js"></script>
 
 
-  
-    <script src="/blog/js/script.js"></script>
-  
-    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
-  
-    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.3/build/highlight.min.js"></script>
-  
-    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
-  
 
+<script src="/blog/js/script.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
 
-  <script>
-    $("img").not('.page img').not('.nav-logo img').each(function () {
-      var element = document.createElement("a");
-      $(element).attr("data-fancybox", "gallery");
-      $(element).attr("href", $(this).attr("src"));
-      $(this).wrap(element);
-    });
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
-  
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.3/build/highlight.min.js"></script>
 
-
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      }
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
 
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@8.6.3/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({startOnLoad:true});</script>
+<script>
+  $("img").not('.page img').not('.nav-logo img').each(function () {
+    var element = document.createElement("a");
+    $(element).attr("data-fancybox", "gallery");
+    $(element).attr("href", $(this).attr("src"));
+    $(this).wrap(element);
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+
+
+
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@8.6.3/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({
+    startOnLoad: true
+  });
+</script>
 
 
 <script>
