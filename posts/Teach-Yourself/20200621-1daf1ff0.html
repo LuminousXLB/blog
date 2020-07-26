@@ -503,6 +503,12 @@ Notation &quot;x &lt;=? y&quot; := (leb x y) (at level 70) : nat_scope.</code></
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
 
 
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@8.6.3/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({startOnLoad:true});</script>
+
+
 <script>
   var btntop = $('#gotop');
   btntop.on('click', function (e) {
@@ -514,7 +520,9 @@ Notation &quot;x &lt;=? y&quot; := (leb x y) (at level 70) : nat_scope.</code></
 <script>
   $(document).ready(function () {
     $('pre code').each(function (i, block) {
-      hljs.lineNumbersBlock(block);
+      if ($.inArray(block.className, ['mermaid']) < 0) {
+        hljs.lineNumbersBlock(block);
+      }
     });
   });
 </script>
