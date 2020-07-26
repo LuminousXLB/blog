@@ -2,7 +2,7 @@
 title: Coq 01 - 数据和类型
 category: Teach Yourself
 tags: Coq
-abbrlink: 99e24dea
+abbrlink: 1daf1ff0
 date: 2020-06-21 13:26:59
 ---
 

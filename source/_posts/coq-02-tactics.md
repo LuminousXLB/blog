@@ -2,7 +2,7 @@
 title: Coq 02 - 策略
 category: Teach Yourself
 tags: Coq
-abbrlink: f89f2075
+abbrlink: fb24fd70
 date: 2020-06-21 21:18:19
 ---
 
