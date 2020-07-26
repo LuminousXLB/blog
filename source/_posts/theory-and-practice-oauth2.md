@@ -293,3 +293,245 @@ http://i.sjtu.edu.cn/jaccountlogin?code={Authorization Code}
 
 `i.sjtu.edu.cn`就可以使用这一授权码获取essential信息。
 
+
+### 基于Passport.js搭建一个 OAuth2 服务
+
+新建一个基于Express.js的web项目
+
+https://expressjs.com/en/starter/generator.html
+
+安装Passport.js
+
+http://www.passportjs.org/docs/
+
+``` shell
+$ npm install passport
+```
+
+#### 用户名、密码认证
+
+安装认证模块
+
+``` shell
+$ npm install passport-local
+```
+
+在`app.js`中引入passport
+
+``` javascript
+var passport = require('passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
+```
+
+为了好看一点儿，在`layout.jade`里加一个Bootstrap
+
+``` jade
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    title= title
+    link(rel="stylesheet", href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css")
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    block content
+```
+
+设计登录视图`login.jade`
+
+``` jade
+extends layout
+
+block content
+    .container
+        form(action="/users/login", method="post")
+            div.form-group
+                label(for="username") Username:
+                input#username.form-control(type="text", name="username")
+            div.form-group
+                label(for="password") Password:
+                input#password.form-control(type="password", name="password")
+            div
+                input#submit.btn.btn-primary(type="submit", name="submit")
+```
+
+和登录成功后的页面`hello.jade`
+
+``` jade
+extends layout
+
+block content
+  h1= title
+  h2 Hello, #{username}
+```
+
+在 `routes/users.js` 中引入passport和LocalStrategy
+
+``` javascript
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
+```
+
+由于这里是一个Proof-of-Concept，我们假设用户名和密码相等即为有效。同时设定用户信息在Session中序列化和反序列化的规则。
+
+``` javascript
+passport.use(new LocalStrategy(
+  function (username, password, done) {
+    if(username === password) {
+      return done(null, username);
+    } else {
+      return done(null, false, { message: 'Incorrect username or password.' });
+    }
+  }
+));
+
+passport.serializeUser(function (user, done) {
+  done(null, user.username);
+});
+
+passport.deserializeUser(function (username, done) {
+  done(null, { username });
+});
+```
+
+添加修改原有路由并添加两条新的路由
+
+``` javascript
+router.get('/', function (req, res, next) {
+  if (req.query.user) {
+    res.render('hello', {
+      'title': 'Login Success',
+      'username': req.query.user
+    })
+  } else {
+    res.send('respond with a resource');
+  }
+});
+
+router.get('/login', function (req, res, next) {
+  res.render('login');
+});
+
+router.post('/login',
+  passport.authenticate('local', {
+    failureRedirect: '/login',
+    failureFlash: true
+  }),
+  function (req, res) {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    res.redirect('/users?user=' + req.user.username);
+  }
+);
+
+```
+
+访问`http://localhost:3000/users/login`填写登录表单，如果成功登录页面将显示用户名。
+
+
+当前代码的状态为 https://github.com/LuminousXLB/Practice-OAuth-2/tree/local
+
+
+
+#### OAuth 授权
+
+在别处启动一个OAuth服务器
+
+``` shell
+$ git clone https://github.com/awais786327/oauth2orize-examples.git
+$ cd oauth2orize-examples
+$ npm install
+$ PORT=4000 npm start
+```
+
+在该项目的`db/clients.js`中已经注册了两个用于PoC的客户端
+
+``` javascript
+const clients = [
+  { id: '1', name: 'Samplr', clientId: 'abc123', clientSecret: 'ssh-secret', isTrusted: false },
+  { id: '2', name: 'Samplr2', clientId: 'xyz123', clientSecret: 'ssh-password', isTrusted: true },
+];
+```
+
+`db/users.js`中已经注册了两个用于PoC的用户。
+
+``` javascript
+const users = [
+  { id: '1', username: 'bob', password: 'secret', name: 'Bob Smith' },
+  { id: '2', username: 'joe', password: 'password', name: 'Joe Davis' },
+];
+```
+
+修改我们的应用以使用OAuth授权
+
+``` shell
+$ npm install passport-oauth
+```
+
+在`login.jade`里添加一个OAuth登录的按钮。
+
+``` jade
+    .container
+        div
+            a#oauth.btn.btn-primary(href="/users/login/oauth") OAuth
+```
+
+在`users.js`中添加OAuthStrategy
+
+``` javascript
+var OAuthStrategy = require('passport-oauth').OAuthStrategy;
+
+
+passport.use('provider', new OAuth2Strategy({
+  authorizationURL: 'http://localhost:4000/dialog/authorize',
+  tokenURL: 'http://localhost:4000/oauth/token',
+  clientID: 'abc123',
+  clientSecret: 'ssh-secret',
+  callbackURL: 'http://localhost:3000/users/login/callback'
+},
+  function (token, tokenSecret, profile, done) {
+    console.log({ token, tokenSecret, profile })
+    axios.get('http://localhost:4000/api/userinfo', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      done(null, {
+        username: response.data.name,
+        profile: response.data,
+        token,
+        tokenSecret
+      });
+    })
+  }
+));
+```
+
+OAuth2认证入口和回调的路由
+
+``` javascript
+// Redirect the user to the OAuth provider for authentication.
+router.get('/login/oauth', passport.authenticate('provider', { scope: 'basic' }));
+
+// The OAuth provider has redirected the user back to the application.
+// Finish the authentication process by attempting to obtain an access
+// token.  If authorization was granted, the user will be logged in.
+// Otherwise, authentication has failed.
+router.get('/login/callback',
+  passport.authenticate('provider', {
+    failureRedirect: '/login',
+    failureFlash: true
+  }),
+  function (req, res) {
+    console.log(req, res)
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    res.redirect('/users?user=' + req.user.username);
+  }
+);
+```
+
+代码见`https://github.com/LuminousXLB/Practice-OAuth-2`
