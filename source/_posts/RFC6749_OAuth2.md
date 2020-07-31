@@ -1,20 +1,20 @@
 ---
 title: OAuth 2.0
 category: Theory and Practice
-tags: Security Protocol
+tags:
+  - Security Protocol
+  - Web
 abbrlink: 2fb7319c
 date: 2020-07-26 09:58:42
 ---
 
-
 {% note info %}
 
-参考资料：
+[RFC 6749: The OAuth 2.0 Authorization Framework](https://tools.ietf.org/pdf/rfc6749.pdf)
 
-- The OAuth 2.0 Authorization Framework
-    http://www.rfcreader.com/#rfc6749
-    文中所有英文描述（除特别注明外）均引自该文档。
 {% endnote %}
+
+<!-- more -->
 
 
 ## THEORY
