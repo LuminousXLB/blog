@@ -146,14 +146,16 @@
   <div class="post-title"><h1>OAuth 2.0</h1></div>
   <div class="post-date">
         <span title="发表于 2020-07-26"><i class="far fa-calendar-alt" aria-hidden="true"></i> 2020-07-26</span>  |  
-        <span title="更新于 2020-08-01"><i class="fas fa-history" aria-hidden="true"></i> 2020-08-01</span>
+        <span title="更新于 2020-08-16"><i class="fas fa-history" aria-hidden="true"></i> 2020-08-16</span>
         
   </div>
   <br>
   <div class="content">
       <div><div class="note note-info">
-            <p>参考资料：</p><ul><li>The OAuth 2.0 Authorization Framework<br>  <a href="http://www.rfcreader.com/#rfc6749" target="_blank" rel="noopener">http://www.rfcreader.com/#rfc6749</a><br>  文中所有英文描述（除特别注明外）均引自该文档。</li></ul>
+            <p><a href="https://tools.ietf.org/pdf/rfc6749.pdf" target="_blank" rel="noopener">RFC 6749: The OAuth 2.0 Authorization Framework</a></p>
           </div>
+
+<a id="more"></a>
 
 
 <h2 id="THEORY"><a href="#THEORY" class="headerlink" title="THEORY"></a>THEORY</h2><p>在传统的Client-Server认证模型中，客户端（Client）向服务器（Server）请求受保护的资源时，需要提供资源所有者（Resource Owner）的用户名和口令（就是我们常说的密码；也可能是其他的credentials，通常是口令）。</p>
@@ -257,7 +259,7 @@
           </div>
 
 <h2 id="Practice"><a href="#Practice" class="headerlink" title="Practice"></a>Practice</h2><h3 id="以i-sjtu-edu-cn为例观察jAccount的认证和授权流程"><a href="#以i-sjtu-edu-cn为例观察jAccount的认证和授权流程" class="headerlink" title="以i.sjtu.edu.cn为例观察jAccount的认证和授权流程"></a>以i.sjtu.edu.cn为例观察jAccount的认证和授权流程</h3><p>从首页上获取jAccount认证的入口</p>
-<img src="/blog/posts/Theory-and-Practice/20200726-2fb7319c/jaccountlogin.png" class="">
+
 
 <p>其链接为 <a href="https://i.sjtu.edu.cn/jaccountlogin" target="_blank" rel="noopener">https://i.sjtu.edu.cn/jaccountlogin</a> ，点击该链接可以看到页面跳转到了 jaccount.sjtu.edu.cn 下的身份认证页面。利用Python查询跳转历史。</p>
 <pre><code class="python">import httpx
@@ -547,6 +549,8 @@ router.get(&#39;/login/callback&#39;,
       <div class="tags">
         
           <i class="fas fa-tags" aria-hidden="true"></i> <a href="/blog/tags/Security-Protocol/" class="tag">Security Protocol</a>
+        
+          <i class="fas fa-tags" aria-hidden="true"></i> <a href="/blog/tags/Web/" class="tag">Web</a>
         
       </div>
       <div class="back">
