@@ -47,7 +47,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.0.3/styles/github.min.css">
   
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 </html>
 
     
@@ -146,7 +146,7 @@
   <div class="post-title"><h1>Coq 01 - 数据和类型</h1></div>
   <div class="post-date">
         <span title="发表于 2020-06-21"><i class="far fa-calendar-alt" aria-hidden="true"></i> 2020-06-21</span>  |  
-        <span title="更新于 2020-08-16"><i class="fas fa-history" aria-hidden="true"></i> 2020-08-16</span>
+        <span title="更新于 2021-04-20"><i class="fas fa-history" aria-hidden="true"></i> 2021-04-20</span>
         
   </div>
   <br>
@@ -163,13 +163,13 @@
 <li><code>Module XX</code> - <code>End XX</code></li>
 <li><code>Fixpoint</code></li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 
 <blockquote>
-<p><a href="https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html" target="_blank" rel="noopener">https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html">https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html</a></p>
 </blockquote>
 <div class="note note-info">
-            <p><strong>CoqIDE的快捷键</strong></p><p>Notice that for all these buttons, except for the <em>gears</em> button, their operations are also available in the menu, where their keyboard shortcuts are given.</p><p><a href="https://coq.inria.fr/distrib/current/refman/practical-tools/coqide.html#coqintegrateddevelopmentenvironment" target="_blank" rel="noopener">https://coq.inria.fr/distrib/current/refman/practical-tools/coqide.html#coqintegrateddevelopmentenvironment</a></p>
+            <p><strong>CoqIDE的快捷键</strong></p><p>Notice that for all these buttons, except for the <em>gears</em> button, their operations are also available in the menu, where their keyboard shortcuts are given.</p><p><a target="_blank" rel="noopener" href="https://coq.inria.fr/distrib/current/refman/practical-tools/coqide.html#coqintegrateddevelopmentenvironment">https://coq.inria.fr/distrib/current/refman/practical-tools/coqide.html#coqintegrateddevelopmentenvironment</a></p>
           </div>
 
 <h2 id="枚举类型-Inductive"><a href="#枚举类型-Inductive" class="headerlink" title="枚举类型(Inductive)"></a>枚举类型(<code>Inductive</code>)</h2><pre><code class="coq">Inductive day : Type :=
@@ -179,7 +179,8 @@
   | thursday
   | friday
   | saturday
-  | sunday.</code></pre>
+  | sunday.
+</code></pre>
 <h2 id="函数-Definition"><a href="#函数-Definition" class="headerlink" title="函数(Definition)"></a>函数(<code>Definition</code>)</h2><pre><code class="coq">Definition next_weekday (d:day) : day :=
   match d with
   | monday ⇒ tuesday
@@ -189,16 +190,20 @@
   | friday ⇒ monday
   | saturday ⇒ monday
   | sunday ⇒ monday
-  end.</code></pre>
-<h3 id="Compute"><a href="#Compute" class="headerlink" title="Compute"></a><code>Compute</code></h3><pre><code class="coq">   Compute (next_weekday friday).
-   (* ==&gt; monday : day *)</code></pre>
-<h3 id="Example-Proof"><a href="#Example-Proof" class="headerlink" title="Example - Proof"></a><code>Example</code> - <code>Proof</code></h3><pre><code class="coq">   Example test_next_weekday:
-     (next_weekday (next_weekday saturday)) = tuesday.
-   Proof. simpl. reflexivity. Qed.</code></pre>
+  end.
+</code></pre>
+<h3 id="Compute"><a href="#Compute" class="headerlink" title="Compute"></a><code>Compute</code></h3><pre><code class="coq">Compute (next_weekday friday).
+(* ==&gt; monday : day *)
+</code></pre>
+<h3 id="Example-Proof"><a href="#Example-Proof" class="headerlink" title="Example - Proof"></a><code>Example</code> - <code>Proof</code></h3><pre><code class="coq">Example test_next_weekday:
+  (next_weekday (next_weekday saturday)) = tuesday.
+Proof. simpl. reflexivity. Qed.
+</code></pre>
 <p>   <code>Example</code>做出了一个断言并命名，是一个需要使用Coq命名的目标；<code>Proof</code>做出证明。</p>
 <h2 id="布尔类型"><a href="#布尔类型" class="headerlink" title="布尔类型"></a>布尔类型</h2><pre><code class="coq">Inductive bool : Type :=
   | true
-  | false.</code></pre>
+  | false.
+</code></pre>
 <p>Coq有内置的布尔类型。</p>
 <h3 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h3><p>多参数函数的定义。<br>非、与、或。</p>
 <pre><code class="coq">Definition negb (b:bool) : bool :=
@@ -215,13 +220,16 @@ Definition orb (b1:bool) (b2:bool) : bool :=
   match b1 with
   | true ⇒ true
   | false ⇒ b2
-  end.</code></pre>
+  end.
+</code></pre>
 <h3 id="运算符-Notation"><a href="#运算符-Notation" class="headerlink" title="运算符(Notation)"></a>运算符(<code>Notation</code>)</h3><pre><code class="coq">Notation &quot;x &amp;&amp; y&quot; := (andb x y).
-Notation &quot;x || y&quot; := (orb x y).</code></pre>
+Notation &quot;x || y&quot; := (orb x y).
+</code></pre>
 <h2 id="输出表达式的类型-Check"><a href="#输出表达式的类型-Check" class="headerlink" title="输出表达式的类型(Check)"></a>输出表达式的类型(<code>Check</code>)</h2><pre><code class="coq">Check true.
 (* ===&gt; true : bool *)
 Check negb.
-(* ===&gt; negb : bool -&gt; bool *)</code></pre>
+(* ===&gt; negb : bool -&gt; bool *)
+</code></pre>
 <h2 id="从已有类型构造新类型"><a href="#从已有类型构造新类型" class="headerlink" title="从已有类型构造新类型"></a>从已有类型构造新类型</h2><p>类型的定义中包括一组构造表达式<br><code>primary (p : rgb)</code>：<em>the constructor <code>primary</code> applied to the argument <code>p</code></em></p>
 <pre><code class="coq">Inductive rgb : Type :=
   | red
@@ -230,7 +238,8 @@ Check negb.
 Inductive color : Type :=
   | black
   | white
-  | primary (p : rgb).</code></pre>
+  | primary (p : rgb).
+</code></pre>
 <p>给<code>primary</code>的参数命名，匹配一个常量，或者使用<code>_</code>匹配任意值</p>
 <pre><code class="coq">Definition monochrome (c : color) : bool :=
   match c with
@@ -245,7 +254,8 @@ Definition isred (c : color) : bool :=
   | white ⇒ false
   | primary red ⇒ true
   | primary _ ⇒ false
-  end.</code></pre>
+  end.
+</code></pre>
 <h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2><h3 id="定义半字节（nybble）"><a href="#定义半字节（nybble）" class="headerlink" title="定义半字节（nybble）"></a>定义半字节（nybble）</h3><p>注意<code>nybble</code>的定义方式</p>
 <pre><code class="coq">Inductive bit : Type :=
   | B0
@@ -253,7 +263,8 @@ Definition isred (c : color) : bool :=
 Inductive nybble : Type :=
   | bits (b0 b1 b2 b3 : bit).
 Check (bits B1 B0 B1 B0).
-(* ==&gt; bits B1 B0 B1 B0 : nybble *)</code></pre>
+(* ==&gt; bits B1 B0 B1 B0 : nybble *)
+</code></pre>
 <p>定义<code>all_zero</code></p>
 <pre><code class="coq">Definition all_zero (nb : nybble) : bool :=
   match nb with
@@ -263,22 +274,26 @@ Check (bits B1 B0 B1 B0).
 Compute (all_zero (bits B1 B0 B1 B0)).
 (* ===&gt; false : bool *)
 Compute (all_zero (bits B0 B0 B0 B0)).
-(* ===&gt; true : bool *)</code></pre>
+(* ===&gt; true : bool *)
+</code></pre>
 <h2 id="模块-Module"><a href="#模块-Module" class="headerlink" title="模块(Module)"></a>模块(Module)</h2><p>If we enclose a collection of declarations between <code>Module X</code> and <code>End X</code> markers, then, in the remainder of the file after the <code>End</code>, these definitions are referred to by names like <code>X.foo</code> instead of just <code>foo</code>.</p>
 <p>类似于命名空间。</p>
 <pre><code class="coq">Module NatPlayground.
 
 (* anything *)
 
-End NatPlayground.</code></pre>
+End NatPlayground.
+</code></pre>
 <h2 id="自然数"><a href="#自然数" class="headerlink" title="自然数"></a>自然数</h2><h3 id="unary-number"><a href="#unary-number" class="headerlink" title="unary number"></a>unary number</h3><pre><code class="coq">Inductive nat : Type :=
   | O
-  | S (n : nat).</code></pre>
+  | S (n : nat).
+</code></pre>
 <pre><code class="coq">Definition pred (n : nat) : nat :=
   match n with
     | O ⇒ O
     | S n&#39; ⇒ n&#39;
-  end.</code></pre>
+  end.
+</code></pre>
 <h3 id="算术运算"><a href="#算术运算" class="headerlink" title="算术运算"></a>算术运算</h3><pre><code class="coq">Check (S (S (S (S O)))).
   (* ===&gt; 4 : nat *)
 Definition minustwo (n : nat) : nat :=
@@ -288,14 +303,17 @@ Definition minustwo (n : nat) : nat :=
     | S (S n&#39;) ⇒ n&#39;
   end.
 Compute (minustwo 4).
-  (* ===&gt; 2 : nat *)</code></pre>
+  (* ===&gt; 2 : nat *)
+</code></pre>
 <h3 id="判断奇偶-Fixpoint"><a href="#判断奇偶-Fixpoint" class="headerlink" title="判断奇偶(Fixpoint)"></a>判断奇偶(<code>Fixpoint</code>)</h3><pre><code class="coq">Fixpoint evenb (n:nat) : bool :=
   match n with
   | O ⇒ true
   | S O ⇒ false
   | S (S n&#39;) ⇒ evenb n&#39;
-  end.</code></pre>
-<pre><code class="coq">Definition oddb (n:nat) : bool := negb (evenb n).</code></pre>
+  end.
+</code></pre>
+<pre><code class="coq">Definition oddb (n:nat) : bool := negb (evenb n).
+</code></pre>
 <h3 id="算术运算-1"><a href="#算术运算-1" class="headerlink" title="算术运算"></a>算术运算</h3><pre><code class="coq">Fixpoint plus (n : nat) (m : nat) : nat :=
   match n with
     | O ⇒ m
@@ -320,7 +338,8 @@ Fixpoint exp (base power : nat) : nat :=
   match power with
     | O ⇒ S O
     | S p ⇒ mult base (exp base p)
-  end.</code></pre>
+  end.
+</code></pre>
 <h2 id="使用运算符（定义运算符的优先级、运算顺序）"><a href="#使用运算符（定义运算符的优先级、运算顺序）" class="headerlink" title="使用运算符（定义运算符的优先级、运算顺序）"></a>使用运算符（定义运算符的优先级、运算顺序）</h2><pre><code class="coq">Notation &quot;x + y&quot; := (plus x y)
                        (at level 50, left associativity)
                        : nat_scope.
@@ -329,7 +348,8 @@ Notation &quot;x - y&quot; := (minus x y)
                        : nat_scope.
 Notation &quot;x * y&quot; := (mult x y)
                        (at level 40, left associativity)
-                       : nat_scope.</code></pre>
+                       : nat_scope.
+</code></pre>
 <h2 id="比较（嵌套的match）"><a href="#比较（嵌套的match）" class="headerlink" title="比较（嵌套的match）"></a>比较（嵌套的match）</h2><pre><code class="coq">Fixpoint eqb (n m : nat) : bool :=
   match n with
   | O ⇒ match m with
@@ -353,7 +373,8 @@ Fixpoint leb (n m : nat) : bool :=
   end.
 
 Notation &quot;x =? y&quot; := (eqb x y) (at level 70) : nat_scope.
-Notation &quot;x &lt;=? y&quot; := (leb x y) (at level 70) : nat_scope.</code></pre>
+Notation &quot;x &lt;=? y&quot; := (leb x y) (at level 70) : nat_scope.
+</code></pre>
 </div>
 
       <div class="post-copyright">
@@ -365,7 +386,7 @@ Notation &quot;x &lt;=? y&quot; := (leb x y) (at level 70) : nat_scope.</code></
                     <span> 链接: <a href="https://www.taraxacum.ink/blog/posts/Teach-Yourself/20200621-1daf1ff0.html">https://www.taraxacum.ink/blog/posts/Teach-Yourself/20200621-1daf1ff0.html</a></span>
                 </div>
                 <div class="copyright-item">
-                    <span> 声明: 本博客所有文章除特别声明外，均采用许可协议 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                    <span> 声明: 本博客所有文章除特别声明外，均采用许可协议 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 转载请注明出处！</span>
                 </div>
       
       </div>
@@ -462,7 +483,7 @@ Notation &quot;x &lt;=? y&quot; := (leb x y) (at level 70) : nat_scope.</code></
         © 2020 <i class="fa fa-heart" id="heart"></i> Shen Jiamin 
         <br>
         Powered by 
-        <a href="http://hexo.io" target="_blank" rel="noopener">hexo</a> | Theme is <a href="https://github.com/a2396837/hexo-theme-blank/" target="_blank" rel="noopener">blank</a>
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo</a> | Theme is <a target="_blank" rel="noopener" href="https://github.com/a2396837/hexo-theme-blank/">blank</a>
         
     </div>  
   </div>

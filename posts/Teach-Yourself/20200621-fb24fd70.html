@@ -47,7 +47,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.0.3/styles/github.min.css">
   
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 </html>
 
     
@@ -146,7 +146,7 @@
   <div class="post-title"><h1>Coq 02 - 策略</h1></div>
   <div class="post-date">
         <span title="发表于 2020-06-21"><i class="far fa-calendar-alt" aria-hidden="true"></i> 2020-06-21</span>  |  
-        <span title="更新于 2020-08-16"><i class="fas fa-history" aria-hidden="true"></i> 2020-08-16</span>
+        <span title="更新于 2021-04-20"><i class="fas fa-history" aria-hidden="true"></i> 2021-04-20</span>
         
   </div>
   <br>
@@ -161,14 +161,15 @@
 <li><code>assert</code></li>
 <li><code>replace</code></li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 
 <blockquote>
-<p><a href="https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html" target="_blank" rel="noopener">https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html</a><br><a href="https://softwarefoundations.cis.upenn.edu/lf-current/Induction.html" target="_blank" rel="noopener">https://softwarefoundations.cis.upenn.edu/lf-current/Induction.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html">https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html</a><br><a target="_blank" rel="noopener" href="https://softwarefoundations.cis.upenn.edu/lf-current/Induction.html">https://softwarefoundations.cis.upenn.edu/lf-current/Induction.html</a></p>
 </blockquote>
 <h2 id="Simplification"><a href="#Simplification" class="headerlink" title="Simplification"></a>Simplification</h2><pre><code class="coq">Theorem plus_O_n : forall n : nat, 0 + n = n.
 Proof.
-  intros n. simpl. reflexivity.  Qed.</code></pre>
+  intros n. simpl. reflexivity.  Qed.
+</code></pre>
 <ul>
 <li><code>simpl</code>并不是必要的，<code>reflexivity</code>在判断相等时会做一些化简的工作</li>
 <li><code>Example</code>, <code>Theorem</code>, <code>Lemma</code>, <code>Fact</code> and <code>Remark</code>是一样的，只是风格不同</li>
@@ -181,7 +182,8 @@ Proof.
 
 Theorem mult_0_l : ∀n:nat, 0 * n = 0.
 Proof.
-  intros n. reflexivity. Qed.</code></pre>
+  intros n. reflexivity. Qed.
+</code></pre>
 <h2 id="Rewriting"><a href="#Rewriting" class="headerlink" title="Rewriting"></a>Rewriting</h2><h3 id="引入条件并使用"><a href="#引入条件并使用" class="headerlink" title="引入条件并使用"></a>引入条件并使用</h3><pre><code class="coq">Theorem plus_id_example : forall n m:nat,
   n = m -&gt;
   n + n = m + m.
@@ -193,7 +195,8 @@ Proof.
   intros H.
   (* rewrite the goal using the hypothesis: *)
   rewrite -&gt; H.
-  reflexivity.  Qed.</code></pre>
+  reflexivity.  Qed.
+</code></pre>
 <ul>
 <li>The arrow symbol is pronounced “implies.”</li>
 <li>第二行引入条件 <code>n = m</code> 并命名为 <code>H</code>.</li>
@@ -204,7 +207,8 @@ Proof.
 Proof.
   intros n m.
   rewrite -&gt; plus_O_n.
-  reflexivity.  Qed.</code></pre>
+  reflexivity.  Qed.
+</code></pre>
 <h3 id="指定rewrite的方式"><a href="#指定rewrite的方式" class="headerlink" title="指定rewrite的方式"></a>指定rewrite的方式</h3><pre><code class="coq">Theorem plus_1_l : forall n: nat, 1 + n = S n.
 
 Theorem mult_S_1 : forall n m : nat,
@@ -215,14 +219,17 @@ Proof.
   rewrite -&gt; (plus_1_l n).
   rewrite -&gt; H.
   reflexivity.
-Qed.</code></pre>
+Qed.
+</code></pre>
 <h2 id="分情况分析"><a href="#分情况分析" class="headerlink" title="分情况分析"></a>分情况分析</h2><pre><code class="coq">Theorem plus_1_neq_0_firsttry : forall n : nat,
-  (n + 1) =? 0 = false.</code></pre>
+  (n + 1) =? 0 = false.
+</code></pre>
 <p>因为没有给出对<code>n</code>的描述，无法得知应当应用加法的哪一条。所以应当针对不同的情况讨论</p>
 <pre><code class="coq">Proof.
   intros n. destruct n as [ | n&#39;] eqn:E.
   - reflexivity.
-  - reflexivity.   Qed.</code></pre>
+  - reflexivity.   Qed.
+</code></pre>
 <ul>
 <li><code>destruct</code>用于拆分<code>n</code>，得到两个子目标<ul>
 <li><code>as [ | n&#39;]</code>：在每一个子目标中引入的变量名<ul>
@@ -248,7 +255,8 @@ Qed.</code></pre>
 Proof.
   intros b. destruct b eqn:E.
   - reflexivity.
-  - reflexivity. Qed.</code></pre>
+  - reflexivity. Qed.
+</code></pre>
 <h3 id="逻辑与交换律"><a href="#逻辑与交换律" class="headerlink" title="逻辑与交换律"></a>逻辑与交换律</h3><pre><code class="coq">Theorem andb_commutative : ∀b c, andb b c = andb c b.
 Proof.
   intros b c. destruct b eqn:Eb.
@@ -258,7 +266,8 @@ Proof.
   - destruct c eqn:Ec.
     + reflexivity.
     + reflexivity.
-Qed.</code></pre>
+Qed.
+</code></pre>
 <ul>
 <li>除了<code>-</code>、<code>+</code>还可以用<code>*</code>，或者用大括号包起来</li>
 <li>在大括号内部可以重用其外部已经使用过的bullet</li>
@@ -266,13 +275,14 @@ Qed.</code></pre>
 <pre><code class="coq">Theorem andb_commutative&#39; : forall b c, andb b c = andb c b.
 Proof.
   intros b c. destruct b eqn:Eb.
-  { destruct c eqn:Ec.
-    { reflexivity. }
-    { reflexivity. } }
-  { destruct c eqn:Ec.
-    { reflexivity. }
-    { reflexivity. } }
-Qed.</code></pre>
+  &#123; destruct c eqn:Ec.
+    &#123; reflexivity. &#125;
+    &#123; reflexivity. &#125; &#125;
+  &#123; destruct c eqn:Ec.
+    &#123; reflexivity. &#125;
+    &#123; reflexivity. &#125; &#125;
+Qed.
+</code></pre>
 <h3 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h3><pre><code class="coq">Theorem andb_commutative&#39;&#39; :
   forall b c, andb b c = andb c b.
 Proof.
@@ -281,7 +291,8 @@ Proof.
   - reflexivity.
   - reflexivity.
   - reflexivity.
-Qed.</code></pre>
+Qed.
+</code></pre>
 <h3 id="Exercise-Solution"><a href="#Exercise-Solution" class="headerlink" title="Exercise Solution"></a>Exercise Solution</h3><pre><code class="coq">Theorem andb_true_elim2 : forall b c : bool,
   andb b c = true -&gt; c = true.
 Proof.
@@ -291,7 +302,8 @@ Proof.
   - simpl. destruct c eqn:Ec.
     + intros H. reflexivity.
     + intros H. rewrite -&gt; H. reflexivity.
-Qed.</code></pre>
+Qed.
+</code></pre>
 <h2 id="数学归纳法"><a href="#数学归纳法" class="headerlink" title="数学归纳法"></a>数学归纳法</h2><h3 id="右零元"><a href="#右零元" class="headerlink" title="右零元"></a>右零元</h3><ul>
 <li>$n = 0$</li>
 <li>$n = n’ \rightarrow n = S n’$</li>
@@ -300,15 +312,17 @@ Qed.</code></pre>
 Proof.
   intros n. induction n as [| n&#39; IHn&#39;].
   - (* n = 0 *) reflexivity.
-  - (* n = S n&#39; *) simpl. rewrite &lt;- IHn&#39;. reflexivity. Qed.</code></pre>
+  - (* n = S n&#39; *) simpl. rewrite &lt;- IHn&#39;. reflexivity. Qed.
+</code></pre>
 <h2 id="子定理"><a href="#子定理" class="headerlink" title="子定理"></a>子定理</h2><p><code>assert</code>: state and prove the needed “sub-theorem” right at the point where it is used.</p>
 <pre><code class="coq">Theorem mult_0_plus&#39; : forall n m : nat,
   (0 + n) * m = n * m.
 Proof.
   intros n m.
-  assert (H: 0 + n = n). { reflexivity. }
+  assert (H: 0 + n = n). &#123; reflexivity. &#125;
   rewrite -&gt; H.
-  reflexivity.  Qed.</code></pre>
+  reflexivity.  Qed.
+</code></pre>
 <h2 id="代换"><a href="#代换" class="headerlink" title="代换"></a>代换</h2><p><code>replace</code> 将表达式中所有的E1替换成E2</p>
 <pre><code class="coq">Theorem plus_swap&#39; : forall n m p : nat,
   n + (m + p) = m + (n + p).
@@ -318,7 +332,8 @@ Proof.
   replace (n + m) with (m + n).
   - rewrite -&gt; plus_assoc. reflexivity.
   - rewrite -&gt; plus_comm. reflexivity.
-Qed.</code></pre>
+Qed.
+</code></pre>
 </div>
 
       <div class="post-copyright">
@@ -330,7 +345,7 @@ Qed.</code></pre>
                     <span> 链接: <a href="https://www.taraxacum.ink/blog/posts/Teach-Yourself/20200621-fb24fd70.html">https://www.taraxacum.ink/blog/posts/Teach-Yourself/20200621-fb24fd70.html</a></span>
                 </div>
                 <div class="copyright-item">
-                    <span> 声明: 本博客所有文章除特别声明外，均采用许可协议 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                    <span> 声明: 本博客所有文章除特别声明外，均采用许可协议 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 转载请注明出处！</span>
                 </div>
       
       </div>
@@ -427,7 +442,7 @@ Qed.</code></pre>
         © 2020 <i class="fa fa-heart" id="heart"></i> Shen Jiamin 
         <br>
         Powered by 
-        <a href="http://hexo.io" target="_blank" rel="noopener">hexo</a> | Theme is <a href="https://github.com/a2396837/hexo-theme-blank/" target="_blank" rel="noopener">blank</a>
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo</a> | Theme is <a target="_blank" rel="noopener" href="https://github.com/a2396837/hexo-theme-blank/">blank</a>
         
     </div>  
   </div>
